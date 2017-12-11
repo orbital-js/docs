@@ -1,0 +1,35 @@
+site_name: Nest Docs
+site_description: Official Documentation for the Nest Server Framework
+site_author: Nest Team
+site_url: 'https://docs.nestjs.com'
+theme:
+  name: material
+  palette:
+    primary: pink
+    accent: cyan
+  feature:
+    tabs: true
+repo_name: nestjs/docs.nestjs.com
+repo_url: 'https://github.com/nestjs/docs.nestjs.com'
+extra:
+  social:
+    - type: github
+      link: 'https://github.com/nestjs'
+    - type: twitter
+      link: 'https://twitter.com/nestframework'
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+extra_javascript:
+  - assets/scripts/load-contributors.js
+copyright: Copyright &copy; 2017 - Nest Team. Docs are served under the MIT License.
+pages:
+  - Home: index.md
