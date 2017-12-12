@@ -1,0 +1,39 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Introduction\n\n\nNest is a framework for building efficient, scalable \nNode.js\n web applications. It uses modern JavaScript, is built with \nTypeScript\n (preserves compatibility with pure JavaScript) and combines elements of OOP (Object Oriented Programming), FP (Functional Programming), and FRP (Functional Reactive Programming).\n\n\nUnder the hood, Nest makes use of \nExpress\n, allowing for easy use of the myriad third-party plugins which are available.\n\n\nPhilosophy\n\n\nIn recent years, thanks to Node.js, JavaScript has become the \u201clingua franca\u201d of the web for both front and backend applications, giving rise to awesome projects like \nAngular\n, \nReact\n and \nVue\n which improve developer productivity and enable the construction of fast, testable, extensible frontend applications. However, on the server-side, while there are a lot of superb libraries, helpers and tools for Node, none of them effectively solve the main problem - the architecture.\n\n\nNest aims to provide an application architecture out of the box which allows for effortless creation of highly testable, scalable, loosely coupled and easily maintainable applications.\n\n\nFeatures\n\n\n\n\nBuilt with \nTypeScript\n (compatible with pure JavaScript + \nBabel\n\n\nEasy\n to learn - syntax similar to \nAngular\n\n\nFamiliar\n - based on well-known libraries (\nExpress\n / \nSocket.io\n)\n\n\nDependency Injection\n - built-in asynchronous \nIoC\n container with a \nhierarchical injector\n\n\nWebSockets\n module (based on \nsocket.io\n, but you can bring your own library, by making use of \nWebSocketAdapter\n)\n\n\nModular\n - defines an easy to follow module definition pattern so you can split your system into reusable modules\n\n\nReactive microservice\n support with message patterns (built-in transport via TCP / \nRedis\n, but other communication schemes can be implemented with \nCustomTransportStrategy\n)\n\n\nException layer\n - throwable web exceptions with status codes, exception filters\n\n\nPipes\n - synchronous \n asynchronous (e.g. validation purposes)\n\n\nGuards\n - attach additional logic in a declarative manner (e.g. role-based access control)\n\n\nInterceptors\n - built on top of \nRxJS\n\n\nTesting utilities (both \ne2e \n unit\n tests)\n\n\nMore!\n\n\n\n\nInstallation\n\n\nStart a project with \nTypeScript\n:\n\n\n$ git clone https://github.com/nestjs/nest-typescript-starter.git your-project-name\n$ \ncd\n your-project-name\n$ npm install\n$ npm start\n\n\n\n\nStart a project with \nJavaScript\n:\n\n$ git clone https://github.com/nestjs/javascript-starter.git project\n$ \ncd\n project\n$ npm install\n$ npm run start\n\n\n\nStart a New Project from Scratch with \nNPM\n:\n\n$ npm i --save @nestjs/core @nestjs/common @nestjs/microservices @nestjs/websockets @nestjs/testing reflect-metadata rxjs\n\n\n\nPeople\n\n\nNest was created by \nKamil My\u015bliwiec\n in 2017.\n\n\nContributors", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#introduction", 
+            "text": "Nest is a framework for building efficient, scalable  Node.js  web applications. It uses modern JavaScript, is built with  TypeScript  (preserves compatibility with pure JavaScript) and combines elements of OOP (Object Oriented Programming), FP (Functional Programming), and FRP (Functional Reactive Programming).  Under the hood, Nest makes use of  Express , allowing for easy use of the myriad third-party plugins which are available.", 
+            "title": "Introduction"
+        }, 
+        {
+            "location": "/#philosophy", 
+            "text": "In recent years, thanks to Node.js, JavaScript has become the \u201clingua franca\u201d of the web for both front and backend applications, giving rise to awesome projects like  Angular ,  React  and  Vue  which improve developer productivity and enable the construction of fast, testable, extensible frontend applications. However, on the server-side, while there are a lot of superb libraries, helpers and tools for Node, none of them effectively solve the main problem - the architecture.  Nest aims to provide an application architecture out of the box which allows for effortless creation of highly testable, scalable, loosely coupled and easily maintainable applications.", 
+            "title": "Philosophy"
+        }, 
+        {
+            "location": "/#features", 
+            "text": "Built with  TypeScript  (compatible with pure JavaScript +  Babel  Easy  to learn - syntax similar to  Angular  Familiar  - based on well-known libraries ( Express  /  Socket.io )  Dependency Injection  - built-in asynchronous  IoC  container with a  hierarchical injector  WebSockets  module (based on  socket.io , but you can bring your own library, by making use of  WebSocketAdapter )  Modular  - defines an easy to follow module definition pattern so you can split your system into reusable modules  Reactive microservice  support with message patterns (built-in transport via TCP /  Redis , but other communication schemes can be implemented with  CustomTransportStrategy )  Exception layer  - throwable web exceptions with status codes, exception filters  Pipes  - synchronous   asynchronous (e.g. validation purposes)  Guards  - attach additional logic in a declarative manner (e.g. role-based access control)  Interceptors  - built on top of  RxJS  Testing utilities (both  e2e   unit  tests)  More!", 
+            "title": "Features"
+        }, 
+        {
+            "location": "/#installation", 
+            "text": "Start a project with  TypeScript :  $ git clone https://github.com/nestjs/nest-typescript-starter.git your-project-name\n$  cd  your-project-name\n$ npm install\n$ npm start  Start a project with  JavaScript : $ git clone https://github.com/nestjs/javascript-starter.git project\n$  cd  project\n$ npm install\n$ npm run start  Start a New Project from Scratch with  NPM : $ npm i --save @nestjs/core @nestjs/common @nestjs/microservices @nestjs/websockets @nestjs/testing reflect-metadata rxjs", 
+            "title": "Installation"
+        }, 
+        {
+            "location": "/#people", 
+            "text": "Nest was created by  Kamil My\u015bliwiec  in 2017.", 
+            "title": "People"
+        }, 
+        {
+            "location": "/#contributors", 
+            "text": "", 
+            "title": "Contributors"
+        }
+    ]
+}

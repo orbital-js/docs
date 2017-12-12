@@ -30,6 +30,8 @@ markdown_extensions:
   - pymdownx.tilde
 extra_javascript:
   - assets/scripts/load-contributors.js
+extra_css:
+  - assets/styles/custom.css
 copyright: Copyright &copy; 2017 - Nest Team. Docs are served under the MIT License.
 pages:
   - Home: index.md
