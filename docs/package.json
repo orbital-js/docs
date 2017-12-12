@@ -1,0 +1,26 @@
+{
+  "name": "nest-docs",
+  "version": "1.0.0",
+  "description": "Thanks for your intrest in contributing to the Nest docs.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "@material/tabs": "^0.27.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wbhob/nest-docs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wbhob/nest-docs/issues"
+  },
+  "homepage": "https://github.com/wbhob/nest-docs#readme"
+}
