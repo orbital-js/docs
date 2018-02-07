@@ -64,8 +64,6 @@
     
       <link rel="stylesheet" href="./assets/styles/custom.css">
     
-      <link rel="stylesheet" href="./../node_modules/@material/tabs/dist/mdc.tabs.min.css">
-    
     
   </head>
   
@@ -503,46 +501,32 @@
                   <h1>Home</h1>
                 
                 <h2 id="introduction">Introduction</h2>
-<p>Nest is a framework for building efficient, scalable <a href="http://nodejs.org">Node.js</a> web applications. It uses modern JavaScript, is built with <a href="http://www.typescriptlang.org">TypeScript</a> (preserves compatibility with pure JavaScript) and combines elements of OOP (Object Oriented Programming), FP (Functional Programming), and FRP (Functional Reactive Programming).</p>
-<p>Under the hood, Nest makes use of <a href="https://expressjs.com/">Express</a>, allowing for easy use of the myriad third-party plugins which are available.</p>
+<p>Orbital is a command-line interface (<a href="https://en.wikipedia.org/wiki/Command-line_interface">CLI</a>) framework used to build scalable command-line programs. Orbital is designed to run on <a href="http://nodejs.org">Node.JS</a>, and uses <a href="https://www.typescriptlang.org/">TypeScript</a> for type checking and <a href="https://www.npmjs.com/package/reflect-metadata">metadata reflection</a>. Orbital projects work best when used in conjunction with <a href="https://www.npmjs.com/">NPM</a>, and are distributed as <a href="https://www.npmjs.com/">NPM</a> packages.</p>
 <h2 id="philosophy">Philosophy</h2>
-<p>In recent years, thanks to Node.js, JavaScript has become the “lingua franca” of the web for both front and backend applications, giving rise to awesome projects like <a href="https://angular.io/">Angular</a>, <a href="https://github.com/facebook/react">React</a> and <a href="https://github.com/vuejs/vue">Vue</a> which improve developer productivity and enable the construction of fast, testable, extensible frontend applications. However, on the server-side, while there are a lot of superb libraries, helpers and tools for Node, none of them effectively solve the main problem - the architecture.</p>
-<p>Nest aims to provide an application architecture out of the box which allows for effortless creation of highly testable, scalable, loosely coupled and easily maintainable applications.</p>
+<p>When we began contributing to the Nest CLI project, we found that the framework that was initially used was confusing and non-standard. Upon analyzing other CLI projects, we found that many of them also did not have standards, and were using strange combinations of some of the existing frameworks.</p>
+<p>We created Orbital to be the most feature-rich and standardized, yet beautifully simple CLI framework currently available. Out of the box, we've designed Orbital to be the best solution to building your next CLI project.</p>
 <h2 id="features">Features</h2>
 <ul>
-<li>Built with <a href="http://www.typescriptlang.org">TypeScript</a> (compatible with pure JavaScript + <a href="http://babeljs.io/">Babel</a></li>
-<li><strong>Easy</strong> to learn - syntax similar to <a href="https://angular.io/">Angular</a></li>
-<li><strong>Familiar</strong> - based on well-known libraries (<a href="https://github.com/expressjs/express">Express</a> / <a href="https://github.com/socketio/socket.io">Socket.io</a>)</li>
-<li><strong>Dependency Injection</strong> - built-in asynchronous <strong>IoC</strong> container with a <strong>hierarchical injector</strong></li>
-<li><strong>WebSockets</strong> module (based on <a href="https://github.com/socketio/socket.io">socket.io</a>, but you can bring your own library, by making use of <code class="codehilite"><span class="nx">WebSocketAdapter</span></code>)</li>
-<li><strong>Modular</strong> - defines an easy to follow module definition pattern so you can split your system into reusable modules</li>
-<li><strong>Reactive microservice</strong> support with message patterns (built-in transport via TCP / <a href="https://redis.io/">Redis</a>, but other communication schemes can be implemented with <code class="codehilite"><span class="nx">CustomTransportStrategy</span></code>)</li>
-<li><strong>Exception layer</strong> - throwable web exceptions with status codes, exception filters</li>
-<li><strong>Pipes</strong> - synchronous &amp; asynchronous (e.g. validation purposes)</li>
-<li><strong>Guards</strong> - attach additional logic in a declarative manner (e.g. role-based access control)</li>
-<li><strong>Interceptors</strong> - built on top of <a href="https://github.com/reactivex/rxjs">RxJS</a></li>
-<li>Testing utilities (both <strong>e2e &amp; unit</strong> tests)</li>
-<li><strong>More!</strong></li>
+<li>Built with TypeScript for static type-checking</li>
+<li>Run-time type checks and parameter casting</li>
+<li>Run-time validation</li>
+<li>Performance-optimized "production mode"</li>
+<li>Angular-based dependency injection</li>
+<li>Beautiful help generation</li>
 </ul>
 <h2 id="installation">Installation</h2>
 <p>Start a project with <strong>TypeScript</strong>:</p>
-<div class="codehilite"><pre><span></span>$ git clone https://github.com/nestjs/nest-typescript-starter.git your-project-name
+<div class="codehilite"><pre><span></span>$ git clone https://github.com/orbital-js/starter.git your-project-name
 $ <span class="nb">cd</span> your-project-name
 $ npm install
 $ npm start
 </pre></div>
 
-<p>Start a project with <strong>JavaScript</strong>:
-<div class="codehilite"><pre><span></span>$ git clone https://github.com/nestjs/javascript-starter.git project
-$ <span class="nb">cd</span> project
-$ npm install
-$ npm run start
-</pre></div></p>
-<p>Start a New Project from Scratch with <strong>NPM</strong>:
-<div class="codehilite"><pre><span></span>$ npm i --save @nestjs/core @nestjs/common @nestjs/microservices @nestjs/websockets @nestjs/testing reflect-metadata rxjs
+<p>Start a new project from scratch with <strong>NPM</strong>:
+<div class="codehilite"><pre><span></span>$ npm install --save @orbital/core
 </pre></div></p>
 <h2 id="people">People</h2>
-<p>Nest was created by <a href="https://wilsonhobbs.com">Wilson Hobbs</a> and <a href="https://twitter.com/MonsieurMan">Ange Picard</a> in 2018.</p>
+<p>Orbital was created by <a href="https://wilsonhobbs.com">Wilson Hobbs</a> and <a href="https://twitter.com/MonsieurMan">Ange Picard</a> in 2018.</p>
 <h3 id="contributors">Contributors</h3>
 <p><p class="contributors"></p></p>
                 
@@ -586,7 +570,7 @@ $ npm run start
       <div class="md-footer-copyright">
         
           <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2017 - Orbital Team. Docs are served under the MIT License.
+            Copyright &copy; 2018 - Orbital Team. Docs are served under the MIT License.
           </div>
         
         powered by
@@ -621,8 +605,6 @@ $ npm run start
       <script>app.initialize({version:"0.17.2",url:{base:"."}})</script>
       
         <script src="./assets/scripts/load-contributors.js"></script>
-      
-        <script src="./../node_modules/@material/tabs/dist/mdc.tabs.min.js"></script>
       
     
     
