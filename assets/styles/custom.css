@@ -1,0 +1,9 @@
+.contributors a {
+    padding: 5px 20px 5px 0;
+    display: inline-block;
+    float: left;
+}
+
+.contributors a:last-child {
+    margin-bottom: 30px;
+}
