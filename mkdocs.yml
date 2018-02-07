@@ -32,11 +32,9 @@ markdown_extensions:
   - pymdownx.tilde
 extra_javascript:
   - assets/scripts/load-contributors.js
-  - ../node_modules/@material/tabs/dist/mdc.tabs.min.js
 extra_css:
   - assets/styles/custom.css
-  - ../node_modules/@material/tabs/dist/mdc.tabs.min.css
-copyright: Copyright &copy; 2017 - Orbital Team. Docs are served under the MIT License.
+copyright: Copyright &copy; 2018 - Orbital Team. Docs are served under the MIT License.
 pages:
   - Home: index.md
   - Guide:
