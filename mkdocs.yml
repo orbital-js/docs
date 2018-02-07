@@ -1,24 +1,24 @@
-site_name: Nest Docs
-site_description: Official Documentation for the Nest Server Framework
-site_author: Nest Team
-site_url: 'https://docs.nestjs.com'
+site_name: Orbital Docs
+site_description: Official Documentation for the Orbital CLI Framework
+site_author: Orbital Team
+site_url: 'https://docs.orbital.sh'
 theme:
   name: material
   palette:
-    primary: pink
-    accent: cyan
+    primary: blue
+    accent: green
   feature:
     tabs: true
-repo_name: nestjs/docs.nestjs.com
-repo_url: 'https://github.com/nestjs/docs.nestjs.com'
+repo_name: orbital-js/docs
+repo_url: 'https://github.com/orbital-js/docs'
 extra:
   social:
     - type: github
-      link: 'https://github.com/nestjs'
+      link: 'https://github.com/orbital-js'
     - type: twitter
       link: 'https://twitter.com/nestframework'
     - type: globe
-      link: http://nestjs.com
+      link: http://orbital.sh
 markdown_extensions:
   - admonition
   - codehilite
@@ -36,7 +36,7 @@ extra_javascript:
 extra_css:
   - assets/styles/custom.css
   - ../node_modules/@material/tabs/dist/mdc.tabs.min.css
-copyright: Copyright &copy; 2017 - Nest Team. Docs are served under the MIT License.
+copyright: Copyright &copy; 2017 - Orbital Team. Docs are served under the MIT License.
 pages:
   - Home: index.md
   - Guide:

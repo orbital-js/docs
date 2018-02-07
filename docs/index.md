@@ -47,7 +47,7 @@ $ npm i --save @nestjs/core @nestjs/common @nestjs/microservices @nestjs/websock
 ```
 
 ## People
-Nest was created by [Kamil Myśliwiec](https://kamilmysliwiec.com) in 2017.
+Nest was created by [Wilson Hobbs](https://wilsonhobbs.com) and [Ange Picard](https://twitter.com/MonsieurMan) in 2018.
 
 ### Contributors
 <p class="contributors"></p>
