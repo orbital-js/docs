@@ -39,5 +39,6 @@ pages:
   - Home: index.md
   - Guide:
       - Introduction: guide/introduction.md
-      - Controllers: guide/controllers.md
+      - CLI: guide/cli.md
       - Components: guide/components.md
+  - API

@@ -1,70 +1,62 @@
+# Introduction
+
 ## First Steps
 
-In this set of articles you'll learn the **core fundamentals** of Nest. The main idea is to get familiar with essential Nest application building blocks. You'll build a basic CRUD application which features covers a lot of ground at an introductory level.
+The Guide will lead you through building your first Orbital CLI, and will go over the fundamentals of the Orbital framework.
 
 ## Language
 
-We're in love with [TypeScript](http://www.typescriptlang.org/), but above all - we love [Node.JS](https://nodejs.org/en/). That's why Nest is compatible with both TypeScript and **pure JavaScript**. Nest's is taking advantage of latest language features, so to use a framework with simple JavaScript we need a [Babel](http://babeljs.io/)</a> transpiler.
-
-In the articles, we're mostly using TypeScript, but you can always **switch the code snippets** to the JavaScript version when it contains some TypeScript-specific expressions.
+Orbital is built with [TypeScript](https://www.typescriptlang.org), and we recommend developers do the same. Orbital has not been rigorously tested with pure JavaScript, and the documentation will have exclusively TypeScript examples.
 
 ## Prerequisites
 
-Please make sure that [Node.JS](https://nodejs.org/) (>= 6.11.0) is installed on your operating system.
+Please make sure that [Node.JS](https://nodejs.org/) (>=6.0.0) is installed on your operating system. We recommend Node 8 or later. You will also need TypeScript v2.7 or later, and NPM v3 or later.
 
 ## Setup
-Setting up a new project is quite simple with [starter repository](https://github.com/kamilmysliwiec/nest-typescript-starter). Just make sure that you have [NPM](https://www.npmjs.com/) installed then use following commands in your OS terminal:
 
-### TypeScript
+Setting up a new project is quite simple with the [starter](https://github.com/orbital-js/starter). You can clone the repo and get started with these commands:
+
     #!sh
-    git clone https://github.com/nestjs/typescript-starter.git project
-    cd project
+    git clone https://github.com/orbital-js/starter project-name
+    cd project-name
     npm install
-
-### JavaScript
-    #!sh
-    git clone https://github.com/nestjs/javascript-starter.git project
-    cd project
-    npm install
-
 
 The `project` directory will contain several core files inside `src` directory.
 
-```
+```txt
 src
-└── server.ts
-└── modules
-    └── app.controller.ts
-    └── app.module.ts
+└── main.ts
+└── cli.ts
+└── commands
+    └── hello.command.ts
 ```
 
-Following the convention, newly created modules should be placed inside `modules` directory.
+These files each serve an important and unique purpose, outlined in the table below.
 
-| File                | Description                                                                                       |
-| ------------------- | ------------------------------------------------------------------------------------------------- |
-| `server.ts`         | The entry file of the application. It uses `NestFactory` to create the Nest application instance. |
-| `app.module.ts`     | Defines `AppModule`, the root module of the application.                                          |
-| `app.controller.ts` | Basic controller example with a single route.                                                     |
+| File                        | Description                                                                        |
+| --------------------------- | ---------------------------------------------------------------------------------- |
+| `main.ts`                   | The entry point to your CLI. Provides bootstrapping logic to render the CLI.       |
+| `cli.ts`                    | Defines the primary CLI instance of the application.                               |
+| `commands/hello.command.ts` | A single executable command with business logic for when the command is triggered. |
 
-The `server.ts` includes an async function, which responsibility is to **bootstrap** our application:
+The `main.ts` includes an single function, which responsibility is to **bootstrap** our application:
 
     #!ts
-    import { NestFactory } from '@nestjs/core';
-    import { ApplicationModule } from './modules/app.module';
+    import { OrbitalFactory } from '@orbital/core';
+    import { MyCLI } from './cli';
 
-    async function bootstrap() {
-        const app = await NestFactory.create(ApplicationModule);
-        await app.listen(3000);
-    }
+    OrbitalFactory.bootstrap(MyCLI)
+        .execute(process.argv);
 
-    bootstrap();
+To instantiate the application, the `bootstrap` method handles all of the command resolution and injection. The `execute` method accepts an array of strings, typically `process.argv`, as the command line input. It can be useful, however, to substitute in other arrays, particularly during testing. We will cover this in a later guide.
 
-To create a Nest application instance, we use the `NestFactory`. The `create()` method returns an object, which implements the `INestApplication` interface, and provides a set of usable methods, which are well described in the following guides.
+## Running Your CLI
 
-## Running Your Application
+Once you've downloaded and installed the starter, you can run this command to make sure that everything is configured properly.
 
-Once the installation process is completed, you can run the following command to start the HTTP server:
 ```sh
-$ npm run start
+$ npm start -- hello
+Welcome to Orbital CLI!
 ```
-This command starts the HTTP server on the port defined inside the `server.ts` file in the `src` directory. While the application is running, open your browser and navigate to [`http://localhost:3000/`](http://localhost:3000/). If everything worked correctly, you should see the `Hello world!` message.
+
+If everything worked correctly, you'll see "Welcome to Orbital CLI!" output below the command.
