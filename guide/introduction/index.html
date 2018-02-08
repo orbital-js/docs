@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
-      <a href="#first-steps" tabindex="1" class="md-skip">
+      <a href="#introduction" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -316,6 +316,8 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
+      
+    
     
       <label class="md-nav__link md-nav__link--active" for="toc">
         Introduction
@@ -328,6 +330,8 @@
       
 <nav class="md-nav md-nav--secondary">
   
+  
+    
   
   
     <label class="md-nav__title" for="toc">Table of contents</label>
@@ -359,31 +363,11 @@
     Setup
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#typescript" title="TypeScript" class="md-nav__link">
-    TypeScript
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#javascript" title="JavaScript" class="md-nav__link">
-    JavaScript
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-your-application" title="Running Your Application" class="md-nav__link">
-    Running Your Application
+  <a href="#running-your-cli" title="Running Your CLI" class="md-nav__link">
+    Running Your CLI
   </a>
   
 </li>
@@ -403,8 +387,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../controllers/" title="Controllers" class="md-nav__link">
-      Controllers
+    <a href="../cli/" title="CLI" class="md-nav__link">
+      CLI
     </a>
   </li>
 
@@ -440,6 +424,8 @@
 <nav class="md-nav md-nav--secondary">
   
   
+    
+  
   
     <label class="md-nav__title" for="toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
@@ -470,31 +456,11 @@
     Setup
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#typescript" title="TypeScript" class="md-nav__link">
-    TypeScript
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#javascript" title="JavaScript" class="md-nav__link">
-    JavaScript
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-your-application" title="Running Your Application" class="md-nav__link">
-    Running Your Application
+  <a href="#running-your-cli" title="Running Your CLI" class="md-nav__link">
+    Running Your CLI
   </a>
   
 </li>
@@ -516,44 +482,32 @@
                   <a href="https://github.com/orbital-js/docs/edit/master/docs/guide/introduction.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Introduction</h1>
-                
-                <h2 id="first-steps">First Steps</h2>
-<p>In this set of articles you'll learn the <strong>core fundamentals</strong> of Nest. The main idea is to get familiar with essential Nest application building blocks. You'll build a basic CRUD application which features covers a lot of ground at an introductory level.</p>
+                <h1 id="introduction">Introduction</h1>
+<h2 id="first-steps">First Steps</h2>
+<p>The Guide will lead you through building your first Orbital CLI, and will go over the fundamentals of the Orbital framework.</p>
 <h2 id="language">Language</h2>
-<p>We're in love with <a href="http://www.typescriptlang.org/">TypeScript</a>, but above all - we love <a href="https://nodejs.org/en/">Node.JS</a>. That's why Nest is compatible with both TypeScript and <strong>pure JavaScript</strong>. Nest's is taking advantage of latest language features, so to use a framework with simple JavaScript we need a <a href="http://babeljs.io/">Babel</a></a> transpiler.</p>
-<p>In the articles, we're mostly using TypeScript, but you can always <strong>switch the code snippets</strong> to the JavaScript version when it contains some TypeScript-specific expressions.</p>
+<p>Orbital is built with <a href="https://www.typescriptlang.org">TypeScript</a>, and we recommend developers do the same. Orbital has not been rigorously tested with pure JavaScript, and the documentation will have exclusively TypeScript examples.</p>
 <h2 id="prerequisites">Prerequisites</h2>
-<p>Please make sure that <a href="https://nodejs.org/">Node.JS</a> (&gt;= 6.11.0) is installed on your operating system.</p>
+<p>Please make sure that <a href="https://nodejs.org/">Node.JS</a> (&gt;=6.0.0) is installed on your operating system. We recommend Node 8 or later. You will also need TypeScript v2.7 or later, and NPM v3 or later.</p>
 <h2 id="setup">Setup</h2>
-<p>Setting up a new project is quite simple with <a href="https://github.com/kamilmysliwiec/nest-typescript-starter">starter repository</a>. Just make sure that you have <a href="https://www.npmjs.com/">NPM</a> installed then use following commands in your OS terminal:</p>
-<h3 id="typescript">TypeScript</h3>
+<p>Setting up a new project is quite simple with the <a href="https://github.com/orbital-js/starter">starter</a>. You can clone the repo and get started with these commands:</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
-3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>git clone https://github.com/nestjs/typescript-starter.git project
-<span class="nb">cd</span> project
-npm install
-</pre></div>
-</td></tr></table>
-
-<h3 id="javascript">JavaScript</h3>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>git clone https://github.com/nestjs/javascript-starter.git project
-<span class="nb">cd</span> project
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>git clone https://github.com/orbital-js/starter project-name
+<span class="nb">cd</span> project-name
 npm install
 </pre></div>
 </td></tr></table>
 
 <p>The <code class="codehilite">project</code> directory will contain several core files inside <code class="codehilite">src</code> directory.</p>
 <div class="codehilite"><pre><span></span>src
-└── server.ts
-└── modules
-    └── app.controller.ts
-    └── app.module.ts
+└── main.ts
+└── cli.ts
+└── commands
+    └── hello.command.ts
 </pre></div>
 
-<p>Following the convention, newly created modules should be placed inside <code class="codehilite"><span class="n">modules</span></code> directory.</p>
+<p>These files each serve an important and unique purpose, outlined in the table below.</p>
 <table>
 <thead>
 <tr>
@@ -563,46 +517,40 @@ npm install
 </thead>
 <tbody>
 <tr>
-<td><code class="codehilite">server.ts</code></td>
-<td>The entry file of the application. It uses <code class="codehilite">NestFactory</code> to create the Nest application instance.</td>
+<td><code class="codehilite">main.ts</code></td>
+<td>The entry point to your CLI. Provides bootstrapping logic to render the CLI.</td>
 </tr>
 <tr>
-<td><code class="codehilite">app.module.ts</code></td>
-<td>Defines <code class="codehilite">AppModule</code>, the root module of the application.</td>
+<td><code class="codehilite">cli.ts</code></td>
+<td>Defines the primary CLI instance of the application.</td>
 </tr>
 <tr>
-<td><code class="codehilite">app.controller.ts</code></td>
-<td>Basic controller example with a single route.</td>
+<td><code class="codehilite">commands/hello.command.ts</code></td>
+<td>A single executable command with business logic for when the command is triggered.</td>
 </tr>
 </tbody>
 </table>
-<p>The <code class="codehilite">server.ts</code> includes an async function, which responsibility is to <strong>bootstrap</strong> our application:</p>
+<p>The <code class="codehilite">main.ts</code> includes an single function, which responsibility is to <strong>bootstrap</strong> our application:</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
-5
-6
-7
-8
-9</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">NestFactory</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@nestjs/core&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">ApplicationModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./modules/app.module&#39;</span><span class="p">;</span>
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">OrbitalFactory</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@orbital/core&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">MyCLI</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./cli&#39;</span><span class="p">;</span>
 
-<span class="nx">async</span> <span class="kd">function</span> <span class="nx">bootstrap() {</span>
-    <span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">NestFactory</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">ApplicationModule</span><span class="p">);</span>
-    <span class="nx">await</span> <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="nx">bootstrap</span><span class="p">();</span>
+<span class="nx">OrbitalFactory</span><span class="p">.</span><span class="nx">bootstrap</span><span class="p">(</span><span class="nx">MyCLI</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">execute</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">);</span>
 </pre></div>
 </td></tr></table>
 
-<p>To create a Nest application instance, we use the <code class="codehilite">NestFactory</code>. The <code class="codehilite">create()</code> method returns an object, which implements the <code class="codehilite">INestApplication</code> interface, and provides a set of usable methods, which are well described in the following guides.</p>
-<h2 id="running-your-application">Running Your Application</h2>
-<p>Once the installation process is completed, you can run the following command to start the HTTP server:
-<div class="codehilite"><pre><span></span>$ npm run start
+<p>To instantiate the application, the <code class="codehilite">bootstrap</code> method handles all of the command resolution and injection. The <code class="codehilite">execute</code> method accepts an array of strings, typically <code class="codehilite">process.argv</code>, as the command line input. It can be useful, however, to substitute in other arrays, particularly during testing. We will cover this in a later guide.</p>
+<h2 id="running-your-cli">Running Your CLI</h2>
+<p>Once you've downloaded and installed the starter, you can run this command to make sure that everything is configured properly.</p>
+<div class="codehilite"><pre><span></span>$ npm start -- hello
+Welcome to Orbital CLI!
 </pre></div>
-This command starts the HTTP server on the port defined inside the <code class="codehilite">server.ts</code> file in the <code class="codehilite">src</code> directory. While the application is running, open your browser and navigate to <a href="http://localhost:3000/"><code class="codehilite">http://localhost:3000/</code></a>. If everything worked correctly, you should see the <code class="codehilite">Hello world!</code> message.</p>
+
+<p>If everything worked correctly, you'll see "Welcome to Orbital CLI!" output below the command.</p>
                 
                   
                 
@@ -636,13 +584,13 @@ This command starts the HTTP server on the port defined inside the <code class="
           </a>
         
         
-          <a href="../controllers/" title="Controllers" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../cli/" title="CLI" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Controllers
+                CLI
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
