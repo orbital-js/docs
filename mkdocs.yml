@@ -40,5 +40,17 @@ pages:
   - Guide:
       - Introduction: guide/introduction.md
       - CLI: guide/cli.md
-      - Components: guide/components.md
-  - API
+      - Commands: guide/commands.md
+      - Params: guide/params.md
+      - Options: guide/options.md
+      - Subcommands: guide/subcommands.md
+      - Publishing: guide/publishing.md
+  - API:
+      - Core:
+          - CLI: api/core/cli.md
+          - Command: api/core/command.md
+          - Executable: api/core/executable.md
+          - Option: api/core/option.md
+          - OrbitalFactory: api/core/orbital-factory.md
+          - Param: api/core/param.md
+          - SubcommandGroup: api/core/subcommand-group.md
