@@ -13,7 +13,7 @@
         <meta name="description" content="Official Documentation for the Orbital CLI Framework">
       
       
-        <link rel="canonical" href="https://docs.orbital.sh/guide/introduction/">
+        <link rel="canonical" href="https://docs.orbital.sh/guide/options/">
       
       
         <meta name="author" content="Orbital Team">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Introduction - Orbital Docs</title>
+        <title>Options - Orbital Docs</title>
       
     
     
@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
-      <a href="#introduction" tabindex="1" class="md-skip">
+      <a href="#options" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -126,7 +126,7 @@
                 Orbital Docs
               </span>
               <span class="md-header-nav__topic">
-                Introduction
+                Options
               </span>
             
           
@@ -219,7 +219,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="./" title="Guide" class="md-tabs__link md-tabs__link--active">
+        <a href="../introduction/" title="Guide" class="md-tabs__link md-tabs__link--active">
           Guide
         </a>
       
@@ -328,75 +328,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        Introduction
-      </label>
-    
-    <a href="./" title="Introduction" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../introduction/" title="Introduction" class="md-nav__link">
       Introduction
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#first-steps" title="First Steps" class="md-nav__link">
-    First Steps
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#language" title="Language" class="md-nav__link">
-    Language
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" title="Prerequisites" class="md-nav__link">
-    Prerequisites
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#setup" title="Setup" class="md-nav__link">
-    Setup
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#running-your-cli" title="Running Your CLI" class="md-nav__link">
-    Running Your CLI
-  </a>
-  
-</li>
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -440,11 +376,95 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../options/" title="Options" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Options
+      </label>
+    
+    <a href="./" title="Options" class="md-nav__link md-nav__link--active">
       Options
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#examples" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#options-as-flags" title="Options as flags" class="md-nav__link">
+    Options as flags
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options-for-supplemental-information" title="Options for supplemental information" class="md-nav__link">
+    Options for supplemental information
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#importing-the-option-decorator" title="Importing the Option decorator" class="md-nav__link">
+    Importing the Option decorator
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-our-first-option" title="Creating our first option" class="md-nav__link">
+    Creating our first option
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-option-values" title="Default option values" class="md-nav__link">
+    Default option values
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" title="Conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -630,36 +650,56 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#first-steps" title="First Steps" class="md-nav__link">
-    First Steps
+  <a href="#examples" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#options-as-flags" title="Options as flags" class="md-nav__link">
+    Options as flags
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options-for-supplemental-information" title="Options for supplemental information" class="md-nav__link">
+    Options for supplemental information
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#importing-the-option-decorator" title="Importing the Option decorator" class="md-nav__link">
+    Importing the Option decorator
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#language" title="Language" class="md-nav__link">
-    Language
+  <a href="#creating-our-first-option" title="Creating our first option" class="md-nav__link">
+    Creating our first option
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" title="Prerequisites" class="md-nav__link">
-    Prerequisites
+  <a href="#default-option-values" title="Default option values" class="md-nav__link">
+    Default option values
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#setup" title="Setup" class="md-nav__link">
-    Setup
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#running-your-cli" title="Running Your CLI" class="md-nav__link">
-    Running Your CLI
+  <a href="#conclusion" title="Conclusion" class="md-nav__link">
+    Conclusion
   </a>
   
 </li>
@@ -678,78 +718,83 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/orbital-js/docs/edit/master/docs/guide/introduction.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/orbital-js/docs/edit/master/docs/guide/options.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="introduction">Introduction</h1>
-<h2 id="first-steps">First Steps</h2>
-<p>The Guide will lead you through building your first Orbital CLI, and will go over the fundamentals of the Orbital framework.</p>
-<h2 id="language">Language</h2>
-<p>Orbital is built with <a href="https://www.typescriptlang.org">TypeScript</a>, and we recommend developers do the same. Orbital has not been rigorously tested with pure JavaScript, and the documentation will have exclusively TypeScript examples.</p>
-<h2 id="prerequisites">Prerequisites</h2>
-<p>Please make sure that <a href="https://nodejs.org/">Node.JS</a> (&gt;=6.0.0) is installed on your operating system. We recommend Node 8 or later. You will also need TypeScript v2.7 or later, and NPM v3 or later.</p>
-<h2 id="setup">Setup</h2>
-<p>Setting up a new project is quite simple with the <a href="https://github.com/orbital-js/starter">starter</a>. You can clone the repo and get started with these commands:</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>git clone https://github.com/orbital-js/starter project-name
-<span class="nb">cd</span> project-name
-npm install
+                <h1 id="options">Options</h1>
+<p>In the previous guide, we discussed how parameters can be used to pass in dynamic data to your commands. Another way we can create dynamic commands is with <strong>options</strong>. The main difference between parameters and options is that parameters are <em>implicitly</em> defined, and options are <em>explicitly</em> defined. Assosciating parameters with variables in your program is based on the order in which they appear in the command line; <strong>options</strong>, on the other hand, are assosciated directly with a flag, and will not work without this flag indicating that the user wants to use an option.</p>
+<h2 id="examples">Examples</h2>
+<p>Options come in many shapes and sizes, and have a variety of syntaxes and use cases. Most commonly, they will be used as flags or to add supplemental information.</p>
+<p>For the sake of these examples, we will assume that the <code class="codehilite">cli say hello</code> command is a simple console logging command, with the message "hello".</p>
+<h3 id="options-as-flags">Options as flags</h3>
+<p>Flags are typically of <code class="codehilite">boolean</code> type, and manipulate the command in a way that doesn't require additional data. That is, the options can be passed without an input, and the meaning will be interpreted.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>cli say hello --red --bold
 </pre></div>
 </td></tr></table>
 
-<p>The <code class="codehilite">project</code> directory will contain several core files inside <code class="codehilite">src</code> directory.</p>
-<div class="codehilite"><pre><span></span>src
-└── main.ts
-└── cli.ts
-└── commands
-    └── hello.command.ts
-</pre></div>
-
-<p>These files each serve an important and unique purpose, outlined in the table below.</p>
-<table>
-<thead>
-<tr>
-<th>File</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code class="codehilite">main.ts</code></td>
-<td>The entry point to your CLI. Provides bootstrapping logic to render the CLI.</td>
-</tr>
-<tr>
-<td><code class="codehilite">cli.ts</code></td>
-<td>Defines the primary CLI instance of the application.</td>
-</tr>
-<tr>
-<td><code class="codehilite">commands/hello.command.ts</code></td>
-<td>A single executable command with business logic for when the command is triggered.</td>
-</tr>
-</tbody>
-</table>
-<p>The <code class="codehilite">main.ts</code> includes an single function, which responsibility is to <strong>bootstrap</strong> our application:</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">OrbitalFactory</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@orbital/core&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">MyCLI</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./cli&#39;</span><span class="p">;</span>
-
-<span class="nx">OrbitalFactory</span><span class="p">.</span><span class="nx">bootstrap</span><span class="p">(</span><span class="nx">MyCLI</span><span class="p">)</span>
-    <span class="p">.</span><span class="nx">execute</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">);</span>
+<p>These flags do exactly what you would expect them to: they make our output bold and color it red. No value needs to be passed in, since they work on their own and are self-contained. That is directly opposite using flags for supplemental information.</p>
+<h3 id="options-for-supplemental-information">Options for supplemental information</h3>
+<p>What if we wanted to have more open-ended colors and styles for our users, rather than just bold and red? For that, we can use options with values.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>cli say hello --color red --style<span class="o">=</span>bold
 </pre></div>
 </td></tr></table>
 
-<p>To instantiate the application, the <code class="codehilite">bootstrap</code> method handles all of the command resolution and injection. The <code class="codehilite">execute</code> method accepts an array of strings, typically <code class="codehilite">process.argv</code>, as the command line input. It can be useful, however, to substitute in other arrays, particularly during testing. We will cover this in a later guide.</p>
-<h2 id="running-your-cli">Running Your CLI</h2>
-<p>Once you've downloaded and installed the starter, you can run this command to make sure that everything is configured properly.</p>
-<div class="codehilite"><pre><span></span>$ npm start -- hello
-Welcome to Orbital CLI!
+<p>You'll notice that the equal sign is optional, so you and your users are free to use whatever syntax they prefer. In this example, the values "red" and "bold" will be passed directly into your class for you to parse on your own. This provides a much more open-ended way to allow users to pass in whatever data they want, and subsequently, suffer the consequences if the input is not properly formatted.</p>
+<h2 id="importing-the-option-decorator">Importing the Option decorator</h2>
+<p>We first need to import the <code class="codehilite">@Option</code> decorator. This will notify the Orbital runtime that there are options available on the command, and will populate them into the class.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Option</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@orbital/core&#39;</span><span class="p">;</span>
 </pre></div>
+</td></tr></table>
 
-<p>If everything worked correctly, you'll see "Welcome to Orbital CLI!" output below the command.</p>
+<h2 id="creating-our-first-option">Creating our first option</h2>
+<p>Unlike parameters, Options come in as property decorators. If you've used Angular, examples of property decorators are <code class="codehilite">@Input()</code> and <code class="codehilite">@ViewChild()</code>. The option decorator notifies the Orbital runtime that these options exist in the command class, and when the command is instantiated, the user's input is parsed and injected into the class.</p>
+<p>Since <code class="codehilite">@Option()</code> decorates properties, the options we create will be properties on our executable command class. In the example below, <code class="codehilite">colorizeOutput</code> is a made-up function that will colorize the output to whatever the user inputs.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kr">export</span> <span class="kr">class</span> <span class="nx">MyCommand</span> <span class="kr">extends</span> <span class="nx">Executable</span> <span class="p">{</span>
+
+<span class="hll">    <span class="kd">@Option</span><span class="p">()</span> <span class="nx">color</span>: <span class="kt">string</span><span class="p">;</span> <span class="c1">// as additional data</span>
+</span><span class="hll">    <span class="kd">@Option</span><span class="p">()</span> <span class="nx">bold</span>: <span class="kt">boolean</span><span class="p">;</span> <span class="c1">// as a flag</span>
+</span>
+    <span class="nx">execute</span><span class="p">(</span>
+        <span class="kd">@Param</span><span class="p">()</span> <span class="nx">message</span>: <span class="kt">string</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">output</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="hll">        <span class="nx">output</span> <span class="o">=</span> <span class="nx">colorizeOutput</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">color</span><span class="p">);</span>
+</span><span class="hll">        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">bold</span><span class="p">)</span> <span class="p">{</span>
+</span>            <span class="nx">makeBold</span><span class="p">(</span><span class="nx">output</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">output</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+
+<h2 id="default-option-values">Default option values</h2>
+<p>Similarly to parameters, we can set default values of options using TypeScript's default value syntax. This precludes the need to add complex checking default value logic to your execution function (since the variable will always be defined).</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kd">@Option</span><span class="p">()</span> <span class="nx">color</span>: <span class="kt">string</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span><span class="p">;</span>
+</pre></div>
+</td></tr></table>
+
+<div class="admonition question">
+<p class="admonition-title">What about required options?</p>
+<p>Common CLI design encourages putting all required inputs as params, not options. Options are designed to optionally manipulate the user's input, but are by no means required for the function to run. Any required inputs should be converted to <a href="../params">params</a>.</p>
+</div>
+<h2 id="conclusion">Conclusion</h2>
+<p>Options are a powerful way to add function to your CLI program. By adding additional unobtrusive user control points to your program, you make both beginner and advanced users happier to use your software.</p>
                 
                   
                 
@@ -768,7 +813,7 @@ Welcome to Orbital CLI!
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../.." title="Home" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../params/" title="Params" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -777,19 +822,19 @@ Welcome to Orbital CLI!
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Home
+                Params
               </span>
             </div>
           </a>
         
         
-          <a href="../cli/" title="CLI" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../subcommands/" title="Subcommands" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                CLI
+                Subcommands
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

@@ -86,49 +86,309 @@
             "title": "CLI"
         }, 
         {
-            "location": "/guide/components/", 
-            "text": "Creating a Component\n\n\nAlmost everything is a component \u2013 Service, Repository, Factory, Helper [...] and they can be \ninjected\n into controllers or to other components through \nconstructor\n.\n\n\n\n\nIn the previous chapter, we have built a simple \nCatsController\n.\n\n\nThe controllers should only handle HTTP requests and delegate more complex tasks to the \ncomponents\n. The components are a plain TypeScript classes with \n@Component()\n decorator.\n\n\n\n\nHint\n\n\nSince Nest enables the possibility to design, organize the dependencies in more OO-way, we strongly recommend to follow the \nSOLID\n principles.\n\n\n\n\nLet's create a \nCatsService\n component:\n\n\nTypeScript\n\n\n 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13\n14\n15\nimport\n \n{\n \nComponent\n \n}\n \nfrom\n \n@nestjs/common\n;\n\n\nimport\n \n{\n \nCat\n \n}\n \nfrom\n \n./interfaces/cat.interface\n;\n\n\n\n@Component\n()\n\n\nexport\n \nclass\n \nCatsService\n \n{\n\n    \nprivate\n \nreadonly\n \ncats\n: \nCat\n[]\n \n=\n \n[];\n\n\n    \ncreate\n(\ncat\n: \nCat\n)\n \n{\n\n        \nthis\n.\ncats\n.\npush\n(\ncat\n);\n\n    \n}\n\n\n    \nfindAll\n()\n:\n \nCat\n[]\n \n{\n\n        \nreturn\n \nthis\n.\ncats\n;\n\n    \n}\n\n\n}\n\n\n\n\n\n\n\nJavaScript\n\n\n 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13\n14\n15\n16\nimport\n \n{\n \nComponent\n \n}\n \nfrom\n \n@nestjs/common\n;\n\n\n\n@\nComponent\n()\n\n\nexport\n \nclass\n \nCatsService\n \n{\n\n    \nconstructor\n()\n \n{\n\n        \nthis\n.\ncats\n \n=\n \n[];\n\n    \n}\n\n\n    \ncreate\n(\ncat\n)\n \n{\n\n        \nthis\n.\ncats\n.\npush\n(\ncat\n);\n\n    \n}\n\n\n    \nfindAll\n()\n \n{\n\n        \nreturn\n \nthis\n.\ncats\n;\n\n    \n}\n\n\n}\n\n\n\n\n\n\n\nThere's nothing specifically about components. Here's a \nCatsService\n, a basic class with one property and two methods. The only difference is that it has the \n@Component()\n decorator. The \n@Component()\n attaches the metadata, thereby Nest knows that this class is a Nest component.\n\n\n\n\nNote\n\n\nThere's a \nCat\n interface here. I didn't mention it because the schema is exactly same as in the \nCreateCatDto\n class which we have created in the previous chapter.\n\n\n\n\nDependency Injection\n\n\nSince we have the service class already done, let's use it inside the \nCatsController\n:\n\n\nTypeScript\n\n\n 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\nimport\n \n{\n \nController\n,\n \nGet\n,\n \nPost\n,\n \nBody\n \n}\n \nfrom\n \n@nestjs/common\n;\n\n\nimport\n \n{\n \nCreateCatDto\n \n}\n \nfrom\n \n./dto/create-cat.dto\n;\n\n\nimport\n \n{\n \nCatsService\n \n}\n \nfrom\n \n./cats.service\n;\n\n\nimport\n \n{\n \nCat\n \n}\n \nfrom\n \n./interfaces/cat.interface\n;\n\n\n\n@Controller\n(\ncats\n)\n\n\nexport\n \nclass\n \nCatsController\n \n{\n\n    \nconstructor\n(\nprivate\n \nreadonly\n \ncatsService\n: \nCatsService\n)\n \n{}\n\n\n    \n@Post\n()\n\n    \nasync\n \ncreate\n(\n@Body\n()\n \ncreateCatDto\n: \nCreateCatDto\n)\n \n{\n\n        \nthis\n.\ncatsService\n.\ncreate\n(\ncreateCatDto\n);\n\n    \n}\n\n\n    \n@Get\n()\n\n    \nasync\n \nfindAll\n()\n:\n \nPromise\nCat\n[]\n \n{\n\n        \nreturn\n \nthis\n.\ncatsService\n.\nfindAll\n();\n\n    \n}\n\n\n}\n\n\n\n\n\n\n\nJavaScript\n\n\n 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\nimport\n \n{\n \nController\n,\n \nGet\n,\n \nPost\n,\n \nBody\n,\n \nBind\n,\n \nDependencies\n \n}\n \nfrom\n \n@nestjs/common\n;\n\n\nimport\n \n{\n \nCatsService\n \n}\n \nfrom\n \n./cats.service\n;\n\n\n\n@\nController\n(\ncats\n)\n\n\n@\nDependencies\n(\nCatsService\n)\n\n\nexport\n \nclass\n \nCatsController\n \n{\n\n    \nconstructor\n(\ncatsService\n)\n \n{\n\n        \nthis\n.\ncatsService\n \n=\n \ncatsService\n;\n\n    \n}\n\n\n    \n@\nPost\n()\n\n    \n@\nBind\n(\nBody\n())\n\n    \nasync\n \ncreate\n(\ncreateCatDto\n)\n \n{\n\n        \nthis\n.\ncatsService\n.\ncreate\n(\ncreateCatDto\n);\n\n    \n}\n\n\n    \n@\nGet\n()\n\n    \nasync\n \nfindAll\n()\n \n{\n\n        \nreturn\n \nthis\n.\ncatsService\n.\nfindAll\n();\n\n    \n}\n\n\n}\n\n\n\n\n\n\n\nThe \nCatsService\n is injected through the class constructor. Don't be afraid of the \nprivate readonly\n shortened syntax. It means that we've created and initialized the \ncatsService\n member in the same location.\n\n\nConstructor Syntax\n\n\nNest is built around the strong design pattern, which is commonly known as a \nDependency Injection\n. There's a great article about this concept in the \nofficial Angular documentation\n.\n\n\n\n\nHint\n\n\nLearn more about the \nDependency Injection\n in Nest \nhere\n.\n\n\n\n\nIt's extremely easy to manage dependencies with \nTypeScript\n because Nest will recognize your dependencies just by \ntype\n. This single line:\n\n\n1\nconstructor\n(\nprivate\n \nreadonly\n \ncatsService\n: \nCatsService\n)\n \n{}\n`\n\n\n\n\n\n\n\n\n\nWarning\n\n\nBe sure to set the \nemitDecoratorMetadata\n and \nexperimentalDecorators\n flags to true in your tsconfig.json. This tells the compiler to attatch the decorators we use for components to the classes they decorate. Without these flags, you will get a run-time error.\n\n\n\n\nComponent Instantiation\n\n\nThe last thing we need to do is tell the module that \nCatsService\n exists in our codebase. The way to go about notifying Nest of your components is by editing your \napp.module.ts\n file, and putting the service into the \ncomponents\n array of the \n@Module()\n decorator metadata.\n\n\n1\n2\n3\n4\n5\n6\n7\n8\n9\nimport\n \n{\n \nModule\n \n}\n \nfrom\n \n@nestjs/common\n;\n\n\nimport\n \n{\n \nCatsController\n \n}\n \nfrom\n \n./cats/cats.controller\n;\n\n\nimport\n \n{\n \nCatsService\n \n}\n \nfrom\n \n./cats/cats.service\n;\n\n\n\n@Module\n({\n\n    \ncontrollers\n:\n \n[\nCatsController\n],\n\n    \ncomponents\n:\n \n[\nCatsService\n],\n\n\n})\n\n\nexport\n \nclass\n \nApplicationModule\n \n{\n \n}\n\n\n\n\n\n\n\nNow Nest will smoothly resolve the dependencies of the \nCatsController\n class.\nThat's how our directories structure looks right now:\n\n\nsrc\n\u2514\u2500\u2500 server.ts\n\u2514\u2500\u2500 modules\n    \u2514\u2500\u2500 app.controller.ts\n    \u2514\u2500\u2500 app.module.ts\n    \u2514\u2500\u2500 cats\n        \u2514\u2500\u2500 cats.service.ts\n        \u2514\u2500\u2500 cats.controller.ts\n        \u2514\u2500\u2500 dto\n            \u2514\u2500\u2500 create-cat.dto.ts\n        \u2514\u2500\u2500 interfaces\n            \u2514\u2500\u2500 cat.interface.ts", 
-            "title": "Components"
+            "location": "/guide/commands/", 
+            "text": "Commands\n\n\nCommands are the actual executable part of your Orbital project. They contain the code and metadata for actions that your users want to invoke from the command line.\n\n\nCommands also house metadata for options and parameters, which will come later in this guide. For now, we will focus on making a very simple \"hello, world\" command.\n\n\nImporting the Command decorator\n\n\nThe first thing you want to do is import the \nCommand\n decorator from \n@orbital/core\n. This will notify the Orbital runtime that it is working with a valid command instance.\n\n\n1\nimport\n \n{\n \nCommand\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\n\n\n\n\n\nScaffolding an Executable class\n\n\nNow, we need to attatch that decorator to a class that Orbital can execute. We'll do this by \ndecorating\n the class, and making that class extend the \nExecutable\n superclass.\n\n\n 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\nimport\n \n{\n \nCommand\n,\n \nExecutable\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\n\n@Command\n({\n\n    \nname\n:\n \nsay-hello\n\n\n})\n\n\nexport\n \nclass\n \nHelloCommand\n \nextends\n \nExecutable\n \n{\n\n    \nexecute() {\n\n        \n// everything in here will be run\n\n    \n}\n\n\n}\n\n\n\n\n\n\n\nTake notice is the object within the decorator. That is all metadata for the Orbital runtime. The \nname\n property used in this example will be the command the user enters to make the code in \nexecute()\n run.\n\n\nImporting into CLI\n\n\nThe last thing we need to do is import this new command into our CLI's declarations array so that Orbital can be aware of it.\n\n\n 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\nimport\n \n{\n \nHelloCommand\n \n}\n \nfrom\n \n./commands/say-hello.command\n;\n\n\n...\n\n\n@CLI\n({\n\n    \n...\n\n    \ndeclarations\n:\n \n[\n\n        \nHelloCommand\n\n    \n]\n\n    \n...\n\n\n})\n\n\nexport\n \nclass\n \nMyCLI\n \n{\n \n}\n\n\n\n\n\n\n\nThat's it! You've just written your first command with Orbital!", 
+            "title": "Commands"
         }, 
         {
-            "location": "/guide/components/#creating-a-component", 
-            "text": "Almost everything is a component \u2013 Service, Repository, Factory, Helper [...] and they can be  injected  into controllers or to other components through  constructor .   In the previous chapter, we have built a simple  CatsController .  The controllers should only handle HTTP requests and delegate more complex tasks to the  components . The components are a plain TypeScript classes with  @Component()  decorator.   Hint  Since Nest enables the possibility to design, organize the dependencies in more OO-way, we strongly recommend to follow the  SOLID  principles.   Let's create a  CatsService  component:", 
-            "title": "Creating a Component"
+            "location": "/guide/commands/#commands", 
+            "text": "Commands are the actual executable part of your Orbital project. They contain the code and metadata for actions that your users want to invoke from the command line.  Commands also house metadata for options and parameters, which will come later in this guide. For now, we will focus on making a very simple \"hello, world\" command.", 
+            "title": "Commands"
         }, 
         {
-            "location": "/guide/components/#typescript", 
-            "text": "1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13\n14\n15 import   {   Component   }   from   @nestjs/common ;  import   {   Cat   }   from   ./interfaces/cat.interface ;  @Component ()  export   class   CatsService   { \n     private   readonly   cats :  Cat []   =   []; \n\n     create ( cat :  Cat )   { \n         this . cats . push ( cat ); \n     } \n\n     findAll () :   Cat []   { \n         return   this . cats ; \n     }  }", 
-            "title": "TypeScript"
+            "location": "/guide/commands/#importing-the-command-decorator", 
+            "text": "The first thing you want to do is import the  Command  decorator from  @orbital/core . This will notify the Orbital runtime that it is working with a valid command instance.  1 import   {   Command   }   from   @orbital/core ;", 
+            "title": "Importing the Command decorator"
         }, 
         {
-            "location": "/guide/components/#javascript", 
-            "text": "1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13\n14\n15\n16 import   {   Component   }   from   @nestjs/common ;  @ Component ()  export   class   CatsService   { \n     constructor ()   { \n         this . cats   =   []; \n     } \n\n     create ( cat )   { \n         this . cats . push ( cat ); \n     } \n\n     findAll ()   { \n         return   this . cats ; \n     }  }    There's nothing specifically about components. Here's a  CatsService , a basic class with one property and two methods. The only difference is that it has the  @Component()  decorator. The  @Component()  attaches the metadata, thereby Nest knows that this class is a Nest component.   Note  There's a  Cat  interface here. I didn't mention it because the schema is exactly same as in the  CreateCatDto  class which we have created in the previous chapter.", 
-            "title": "JavaScript"
+            "location": "/guide/commands/#scaffolding-an-executable-class", 
+            "text": "Now, we need to attatch that decorator to a class that Orbital can execute. We'll do this by  decorating  the class, and making that class extend the  Executable  superclass.   1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10 import   {   Command ,   Executable   }   from   @orbital/core ;  @Command ({ \n     name :   say-hello  })  export   class   HelloCommand   extends   Executable   { \n     execute() { \n         // everything in here will be run \n     }  }    Take notice is the object within the decorator. That is all metadata for the Orbital runtime. The  name  property used in this example will be the command the user enters to make the code in  execute()  run.", 
+            "title": "Scaffolding an Executable class"
         }, 
         {
-            "location": "/guide/components/#dependency-injection", 
-            "text": "Since we have the service class already done, let's use it inside the  CatsController :", 
-            "title": "Dependency Injection"
+            "location": "/guide/commands/#importing-into-cli", 
+            "text": "The last thing we need to do is import this new command into our CLI's declarations array so that Orbital can be aware of it.   1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10 import   {   HelloCommand   }   from   ./commands/say-hello.command ;  ...  @CLI ({ \n     ... \n     declarations :   [ \n         HelloCommand \n     ] \n     ...  })  export   class   MyCLI   {   }    That's it! You've just written your first command with Orbital!", 
+            "title": "Importing into CLI"
         }, 
         {
-            "location": "/guide/components/#typescript_1", 
-            "text": "1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19 import   {   Controller ,   Get ,   Post ,   Body   }   from   @nestjs/common ;  import   {   CreateCatDto   }   from   ./dto/create-cat.dto ;  import   {   CatsService   }   from   ./cats.service ;  import   {   Cat   }   from   ./interfaces/cat.interface ;  @Controller ( cats )  export   class   CatsController   { \n     constructor ( private   readonly   catsService :  CatsService )   {} \n\n     @Post () \n     async   create ( @Body ()   createCatDto :  CreateCatDto )   { \n         this . catsService . create ( createCatDto ); \n     } \n\n     @Get () \n     async   findAll () :   Promise Cat []   { \n         return   this . catsService . findAll (); \n     }  }", 
-            "title": "TypeScript"
+            "location": "/guide/params/", 
+            "text": "Parameters\n\n\nA powerful way to let your users pass in custom data is with parameters. More often than not, your commands will have some sort of data input that is needed for it to function. Parameters supply a way for us to get that user data.\n\n\nExample\n\n\nIn this example, \n[projectName]\n is the parameter. We would use a parameter here, rather than an \noption\n, because the Orbital CLI requires users to pass in a project name, and this command would fail without it.\n\n\n1\nob new \n[\nprojectName\n]\n\n\n\n\n\n\n\nImporting the Param decorator\n\n\nThe first thing we need to do is import the Param decorator. This decorator notifies the Orbital runtime to look for a parameter in the command input.\n\n\n1\nimport\n \n{\n \nParam\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\n\n\n\n\n\nCreating our first parameter\n\n\nTypeScript has five types of decorators, detailed \nhere\n. In the previous examples, we have used class decorators to decorate commands and CLI classes. The \n@Param()\n decorator is a \nparameter\n decorator, meaning it decorates a parameter of a function.\n\n\n1\n2\n3\n4\n5\n6\n7\n8\n...\n\n\nexport\n \nclass\n \nMyCommand\n \nextends\n \nExecutable\n \n{\n\n    \nexecute\n(\n\n        \n@Param\n()\n \nname\n: \nstring\n,\n\n    \n)\n \n{\n\n        \nconsole\n.\nlog\n(\nHello, \n \n+\n \nname\n);\n\n    \n}\n\n\n}\n\n\n\n\n\n\n\nDefault parameter values\n\n\nIf we were to run this command without passing in a name, it would simply log out \nHello,\n. If we wanted to assign it a default value, we can use TypeScript/ECMAScript's default value feature.\n\n\n1\n2\n3\n...\n\n\n@Param\n()\n \nname\n: \nstring\n \n=\n \nworld\n,\n\n\n...\n\n\n\n\n\n\n\n\n\nWarning\n\n\nMake sure to leave type of the parameter explicitly. The Orbital runtime consumes these type annotations for help generation, so leaving them in place ensures that help is properly generated.\n\n\n\n\nRequired parameters\n\n\nIf we want to force our users to enter a value for the parameter, we can use the \nrequired\n key in the optional parameter metadata. Any default values you set will be overridden, and the command will throw an error if the user forgets to include the parameter.\n\n\n1\n2\n3\n@Param\n({\n\n    \nrequired\n: \ntrue\n\n\n})\n \nname\n: \nstring\n,\n\n\n\n\n\n\n\nConclusion\n\n\nParameters are a great way to encourage users to pass data into your commands. Orbital makes it extremely easy to jump into building your own dynamic command lines with parameters.", 
+            "title": "Params"
         }, 
         {
-            "location": "/guide/components/#javascript_1", 
-            "text": "1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21 import   {   Controller ,   Get ,   Post ,   Body ,   Bind ,   Dependencies   }   from   @nestjs/common ;  import   {   CatsService   }   from   ./cats.service ;  @ Controller ( cats )  @ Dependencies ( CatsService )  export   class   CatsController   { \n     constructor ( catsService )   { \n         this . catsService   =   catsService ; \n     } \n\n     @ Post () \n     @ Bind ( Body ()) \n     async   create ( createCatDto )   { \n         this . catsService . create ( createCatDto ); \n     } \n\n     @ Get () \n     async   findAll ()   { \n         return   this . catsService . findAll (); \n     }  }    The  CatsService  is injected through the class constructor. Don't be afraid of the  private readonly  shortened syntax. It means that we've created and initialized the  catsService  member in the same location.", 
-            "title": "JavaScript"
+            "location": "/guide/params/#parameters", 
+            "text": "A powerful way to let your users pass in custom data is with parameters. More often than not, your commands will have some sort of data input that is needed for it to function. Parameters supply a way for us to get that user data.", 
+            "title": "Parameters"
         }, 
         {
-            "location": "/guide/components/#constructor-syntax", 
-            "text": "Nest is built around the strong design pattern, which is commonly known as a  Dependency Injection . There's a great article about this concept in the  official Angular documentation .   Hint  Learn more about the  Dependency Injection  in Nest  here .   It's extremely easy to manage dependencies with  TypeScript  because Nest will recognize your dependencies just by  type . This single line:  1 constructor ( private   readonly   catsService :  CatsService )   {} `     Warning  Be sure to set the  emitDecoratorMetadata  and  experimentalDecorators  flags to true in your tsconfig.json. This tells the compiler to attatch the decorators we use for components to the classes they decorate. Without these flags, you will get a run-time error.", 
-            "title": "Constructor Syntax"
+            "location": "/guide/params/#example", 
+            "text": "In this example,  [projectName]  is the parameter. We would use a parameter here, rather than an  option , because the Orbital CLI requires users to pass in a project name, and this command would fail without it.  1 ob new  [ projectName ]", 
+            "title": "Example"
         }, 
         {
-            "location": "/guide/components/#component-instantiation", 
-            "text": "The last thing we need to do is tell the module that  CatsService  exists in our codebase. The way to go about notifying Nest of your components is by editing your  app.module.ts  file, and putting the service into the  components  array of the  @Module()  decorator metadata.  1\n2\n3\n4\n5\n6\n7\n8\n9 import   {   Module   }   from   @nestjs/common ;  import   {   CatsController   }   from   ./cats/cats.controller ;  import   {   CatsService   }   from   ./cats/cats.service ;  @Module ({ \n     controllers :   [ CatsController ], \n     components :   [ CatsService ],  })  export   class   ApplicationModule   {   }    Now Nest will smoothly resolve the dependencies of the  CatsController  class.\nThat's how our directories structure looks right now:  src\n\u2514\u2500\u2500 server.ts\n\u2514\u2500\u2500 modules\n    \u2514\u2500\u2500 app.controller.ts\n    \u2514\u2500\u2500 app.module.ts\n    \u2514\u2500\u2500 cats\n        \u2514\u2500\u2500 cats.service.ts\n        \u2514\u2500\u2500 cats.controller.ts\n        \u2514\u2500\u2500 dto\n            \u2514\u2500\u2500 create-cat.dto.ts\n        \u2514\u2500\u2500 interfaces\n            \u2514\u2500\u2500 cat.interface.ts", 
-            "title": "Component Instantiation"
+            "location": "/guide/params/#importing-the-param-decorator", 
+            "text": "The first thing we need to do is import the Param decorator. This decorator notifies the Orbital runtime to look for a parameter in the command input.  1 import   {   Param   }   from   @orbital/core ;", 
+            "title": "Importing the Param decorator"
+        }, 
+        {
+            "location": "/guide/params/#creating-our-first-parameter", 
+            "text": "TypeScript has five types of decorators, detailed  here . In the previous examples, we have used class decorators to decorate commands and CLI classes. The  @Param()  decorator is a  parameter  decorator, meaning it decorates a parameter of a function.  1\n2\n3\n4\n5\n6\n7\n8 ...  export   class   MyCommand   extends   Executable   { \n     execute ( \n         @Param ()   name :  string , \n     )   { \n         console . log ( Hello,    +   name ); \n     }  }", 
+            "title": "Creating our first parameter"
+        }, 
+        {
+            "location": "/guide/params/#default-parameter-values", 
+            "text": "If we were to run this command without passing in a name, it would simply log out  Hello, . If we wanted to assign it a default value, we can use TypeScript/ECMAScript's default value feature.  1\n2\n3 ...  @Param ()   name :  string   =   world ,  ...     Warning  Make sure to leave type of the parameter explicitly. The Orbital runtime consumes these type annotations for help generation, so leaving them in place ensures that help is properly generated.", 
+            "title": "Default parameter values"
+        }, 
+        {
+            "location": "/guide/params/#required-parameters", 
+            "text": "If we want to force our users to enter a value for the parameter, we can use the  required  key in the optional parameter metadata. Any default values you set will be overridden, and the command will throw an error if the user forgets to include the parameter.  1\n2\n3 @Param ({ \n     required :  true  })   name :  string ,", 
+            "title": "Required parameters"
+        }, 
+        {
+            "location": "/guide/params/#conclusion", 
+            "text": "Parameters are a great way to encourage users to pass data into your commands. Orbital makes it extremely easy to jump into building your own dynamic command lines with parameters.", 
+            "title": "Conclusion"
+        }, 
+        {
+            "location": "/guide/options/", 
+            "text": "Options\n\n\nIn the previous guide, we discussed how parameters can be used to pass in dynamic data to your commands. Another way we can create dynamic commands is with \noptions\n. The main difference between parameters and options is that parameters are \nimplicitly\n defined, and options are \nexplicitly\n defined. Assosciating parameters with variables in your program is based on the order in which they appear in the command line; \noptions\n, on the other hand, are assosciated directly with a flag, and will not work without this flag indicating that the user wants to use an option.\n\n\nExamples\n\n\nOptions come in many shapes and sizes, and have a variety of syntaxes and use cases. Most commonly, they will be used as flags or to add supplemental information.\n\n\nFor the sake of these examples, we will assume that the \ncli say hello\n command is a simple console logging command, with the message \"hello\".\n\n\nOptions as flags\n\n\nFlags are typically of \nboolean\n type, and manipulate the command in a way that doesn't require additional data. That is, the options can be passed without an input, and the meaning will be interpreted.\n\n\n1\ncli say hello --red --bold\n\n\n\n\n\n\nThese flags do exactly what you would expect them to: they make our output bold and color it red. No value needs to be passed in, since they work on their own and are self-contained. That is directly opposite using flags for supplemental information.\n\n\nOptions for supplemental information\n\n\nWhat if we wanted to have more open-ended colors and styles for our users, rather than just bold and red? For that, we can use options with values.\n\n\n1\ncli say hello --color red --style\n=\nbold\n\n\n\n\n\n\nYou'll notice that the equal sign is optional, so you and your users are free to use whatever syntax they prefer. In this example, the values \"red\" and \"bold\" will be passed directly into your class for you to parse on your own. This provides a much more open-ended way to allow users to pass in whatever data they want, and subsequently, suffer the consequences if the input is not properly formatted.\n\n\nImporting the Option decorator\n\n\nWe first need to import the \n@Option\n decorator. This will notify the Orbital runtime that there are options available on the command, and will populate them into the class.\n\n\n1\nimport\n \n{\n \nOption\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\n\n\n\n\n\nCreating our first option\n\n\nUnlike parameters, Options come in as property decorators. If you've used Angular, examples of property decorators are \n@Input()\n and \n@ViewChild()\n. The option decorator notifies the Orbital runtime that these options exist in the command class, and when the command is instantiated, the user's input is parsed and injected into the class.\n\n\nSince \n@Option()\n decorates properties, the options we create will be properties on our executable command class. In the example below, \ncolorizeOutput\n is a made-up function that will colorize the output to whatever the user inputs.\n\n\n 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13\n14\n15\n16\nexport\n \nclass\n \nMyCommand\n \nextends\n \nExecutable\n \n{\n\n\n\n    \n@Option\n()\n \ncolor\n: \nstring\n;\n \n// as additional data\n\n\n    \n@Option\n()\n \nbold\n: \nboolean\n;\n \n// as a flag\n\n\n\n    \nexecute\n(\n\n        \n@Param\n()\n \nmessage\n: \nstring\n\n    \n)\n \n{\n\n        \nlet\n \noutput\n: \nstring\n;\n\n\n        \noutput\n \n=\n \ncolorizeOutput\n(\nmessage\n,\n \nthis\n.\ncolor\n);\n\n\n        \nif\n \n(\nthis\n.\nbold\n)\n \n{\n\n\n            \nmakeBold\n(\noutput\n);\n\n        \n}\n\n        \nconsole\n.\nlog\n(\noutput\n);\n\n    \n}\n\n\n}\n\n\n\n\n\n\n\nDefault option values\n\n\nSimilarly to parameters, we can set default values of options using TypeScript's default value syntax. This precludes the need to add complex checking default value logic to your execution function (since the variable will always be defined).\n\n\n1\n@Option\n()\n \ncolor\n: \nstring\n \n=\n \ngreen\n;\n\n\n\n\n\n\n\n\n\nWhat about required options?\n\n\nCommon CLI design encourages putting all required inputs as params, not options. Options are designed to optionally manipulate the user's input, but are by no means required for the function to run. Any required inputs should be converted to \nparams\n.\n\n\n\n\nConclusion\n\n\nOptions are a powerful way to add function to your CLI program. By adding additional unobtrusive user control points to your program, you make both beginner and advanced users happier to use your software.", 
+            "title": "Options"
+        }, 
+        {
+            "location": "/guide/options/#options", 
+            "text": "In the previous guide, we discussed how parameters can be used to pass in dynamic data to your commands. Another way we can create dynamic commands is with  options . The main difference between parameters and options is that parameters are  implicitly  defined, and options are  explicitly  defined. Assosciating parameters with variables in your program is based on the order in which they appear in the command line;  options , on the other hand, are assosciated directly with a flag, and will not work without this flag indicating that the user wants to use an option.", 
+            "title": "Options"
+        }, 
+        {
+            "location": "/guide/options/#examples", 
+            "text": "Options come in many shapes and sizes, and have a variety of syntaxes and use cases. Most commonly, they will be used as flags or to add supplemental information.  For the sake of these examples, we will assume that the  cli say hello  command is a simple console logging command, with the message \"hello\".", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/guide/options/#options-as-flags", 
+            "text": "Flags are typically of  boolean  type, and manipulate the command in a way that doesn't require additional data. That is, the options can be passed without an input, and the meaning will be interpreted.  1 cli say hello --red --bold   These flags do exactly what you would expect them to: they make our output bold and color it red. No value needs to be passed in, since they work on their own and are self-contained. That is directly opposite using flags for supplemental information.", 
+            "title": "Options as flags"
+        }, 
+        {
+            "location": "/guide/options/#options-for-supplemental-information", 
+            "text": "What if we wanted to have more open-ended colors and styles for our users, rather than just bold and red? For that, we can use options with values.  1 cli say hello --color red --style = bold   You'll notice that the equal sign is optional, so you and your users are free to use whatever syntax they prefer. In this example, the values \"red\" and \"bold\" will be passed directly into your class for you to parse on your own. This provides a much more open-ended way to allow users to pass in whatever data they want, and subsequently, suffer the consequences if the input is not properly formatted.", 
+            "title": "Options for supplemental information"
+        }, 
+        {
+            "location": "/guide/options/#importing-the-option-decorator", 
+            "text": "We first need to import the  @Option  decorator. This will notify the Orbital runtime that there are options available on the command, and will populate them into the class.  1 import   {   Option   }   from   @orbital/core ;", 
+            "title": "Importing the Option decorator"
+        }, 
+        {
+            "location": "/guide/options/#creating-our-first-option", 
+            "text": "Unlike parameters, Options come in as property decorators. If you've used Angular, examples of property decorators are  @Input()  and  @ViewChild() . The option decorator notifies the Orbital runtime that these options exist in the command class, and when the command is instantiated, the user's input is parsed and injected into the class.  Since  @Option()  decorates properties, the options we create will be properties on our executable command class. In the example below,  colorizeOutput  is a made-up function that will colorize the output to whatever the user inputs.   1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13\n14\n15\n16 export   class   MyCommand   extends   Executable   {       @Option ()   color :  string ;   // as additional data       @Option ()   bold :  boolean ;   // as a flag  \n     execute ( \n         @Param ()   message :  string \n     )   { \n         let   output :  string ;           output   =   colorizeOutput ( message ,   this . color );           if   ( this . bold )   {               makeBold ( output ); \n         } \n         console . log ( output ); \n     }  }", 
+            "title": "Creating our first option"
+        }, 
+        {
+            "location": "/guide/options/#default-option-values", 
+            "text": "Similarly to parameters, we can set default values of options using TypeScript's default value syntax. This precludes the need to add complex checking default value logic to your execution function (since the variable will always be defined).  1 @Option ()   color :  string   =   green ;     What about required options?  Common CLI design encourages putting all required inputs as params, not options. Options are designed to optionally manipulate the user's input, but are by no means required for the function to run. Any required inputs should be converted to  params .", 
+            "title": "Default option values"
+        }, 
+        {
+            "location": "/guide/options/#conclusion", 
+            "text": "Options are a powerful way to add function to your CLI program. By adding additional unobtrusive user control points to your program, you make both beginner and advanced users happier to use your software.", 
+            "title": "Conclusion"
+        }, 
+        {
+            "location": "/guide/subcommands/", 
+            "text": "Subcommands\n\n\nSay you have a category of commands that relate to a single action or group. One way you could do this is indicate that the first parameter is an \"action\" parameter, and parse it in your \nexecute()\n method. The easier thing, though, would be to use a \nSubcommandGroup\n. This decorator lets us group together a set of commands with a common prefix.\n\n\nImport the \n@SubcommandGroup()\n decorator\n\n\nThe first thing we need to do is import the decorator from \n@orbital/core\n. This will give us access to the decorator.\n\n\n1\nimport\n \n{\n \nSubcommandGroup\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\n\n\n\n\n\nCreating our first subcommand group\n\n\nSimilarly to the \n@CLI()\n decorator, \n@SubcommandGroup()\n has two important properties: \nname\n and \ndeclarations\n. The \nname\n property is the prefix to all the commands included in the \ndeclarations\n array. In the \ndeclarations\n array, you can put commands, and even deeper-nested subcommand groups.\n\n\n1\n2\n3\n4\n5\n6\n7\n8\n@SubcommandGroup\n({\n\n    \nname\n:\n \nremote\n,\n\n    \ndeclarations\n:\n \n[\n\n        \nRemoveCommand\n,\n \n// name: \nrm\n\n        \nListSubcommand\n \n// name: \nadd\n, subcommandname: \norigin\n\n    \n]\n\n\n})\n\n\nexport\n \nclass\n \nSubcommand\n \n{\n \n}\n\n\n\n\n\n\n\nExample\n\n\nThe above commands would be executed like this:\n\n\n1\n2\n$ my-cli remote rm\n$ my-cli remote add origin", 
+            "title": "Subcommands"
+        }, 
+        {
+            "location": "/guide/subcommands/#subcommands", 
+            "text": "Say you have a category of commands that relate to a single action or group. One way you could do this is indicate that the first parameter is an \"action\" parameter, and parse it in your  execute()  method. The easier thing, though, would be to use a  SubcommandGroup . This decorator lets us group together a set of commands with a common prefix.", 
+            "title": "Subcommands"
+        }, 
+        {
+            "location": "/guide/subcommands/#import-the-subcommandgroup-decorator", 
+            "text": "The first thing we need to do is import the decorator from  @orbital/core . This will give us access to the decorator.  1 import   {   SubcommandGroup   }   from   @orbital/core ;", 
+            "title": "Import the @SubcommandGroup() decorator"
+        }, 
+        {
+            "location": "/guide/subcommands/#creating-our-first-subcommand-group", 
+            "text": "Similarly to the  @CLI()  decorator,  @SubcommandGroup()  has two important properties:  name  and  declarations . The  name  property is the prefix to all the commands included in the  declarations  array. In the  declarations  array, you can put commands, and even deeper-nested subcommand groups.  1\n2\n3\n4\n5\n6\n7\n8 @SubcommandGroup ({ \n     name :   remote , \n     declarations :   [ \n         RemoveCommand ,   // name:  rm \n         ListSubcommand   // name:  add , subcommandname:  origin \n     ]  })  export   class   Subcommand   {   }", 
+            "title": "Creating our first subcommand group"
+        }, 
+        {
+            "location": "/guide/subcommands/#example", 
+            "text": "The above commands would be executed like this:  1\n2 $ my-cli remote rm\n$ my-cli remote add origin", 
+            "title": "Example"
+        }, 
+        {
+            "location": "/guide/publishing/", 
+            "text": "Publishing\n\n\nPublishing your Orbital CLI is easy, and only takes a couple steps. This tutorial will show you how to publish to \nnpm\n.\n\n\nTypeScript Configuration\n\n\nThe most common source of problems in building your Orbital project is because of your \ntsconfig.json\n file. Make sure that the \nexperimentalDecorators\n and \nemitDecoratorMetadata\n properties are set to \ntrue\n. \n\n\nAlso, we recommend building to ES6, and only including your main entry file.\n\n\n 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13\n//\n \ntsconfig.json\n\n\n{\n\n    \ncompilerOptions\n:\n \n{\n\n        \n...\n\n        \nexperimentalDecorators\n:\n \ntrue\n,\n\n        \nemitDecoratorMetadata\n:\n \ntrue\n,\n\n        \ntarget\n:\n \nes6\n,\n\n        \n...\n\n    \n},\n\n    \ninclude\n:\n \n[\n\n        \nsrc/main.ts\n\n    \n]\n\n\n}\n\n\n\n\n\n\n\nShebang\n\n\nIn order to make the command line aware that your program should be run as Node.JS, we need to include a \"shebang\" at the top of our main file. This will survive TypeScript compilation, and save your users a lot of headache.\n\n\n1\n2\n// src/main.ts\n\n\n#\n!\n/usr/bin/env node\n\n\n\n\n\n\n\npackage.json\n\n\nTo let NPM know that your file should have a command-line name, we need to include the \nbin\n property in \npackage.json\n. This will create a symlink to our main command executable file. If the command name is the same as your NPM package name, you can use the \nbin\n property as a string pointing to your entry file.\n\n\n1\n2\n3\n4\n//\n \npackage.json\n\n\n{\n\n    \nbin\n:\n \nsrc/main.ts\n\n\n}\n\n\n\n\n\n\n\nIf you want your CLI to have a different name than the package, you must use \nbin\n as an object, where the key represents the executable name, and the value is the entry file.\n\n\n1\n2\n3\n4\n5\n6\n7\n//\n \npackage.json\n\n\n{\n\n    \nname\n:\n \n@orbital/cli\n,\n\n    \nbin\n:\n \n{\n\n        \nob\n:\n \nsrc/main.ts\n\n    \n}\n\n\n}\n\n\n\n\n\n\n\nTesting the command name\n\n\nTo build your CLI, run \ntsc\n in your project directory. This compiles your source down to useable JavaScript that Node can read and parse. Before publishing, run \nnpm link\n to create a local symlink to simulate how your command line will run. Now, you can use the command name (either in \nbin\n or \nname\n property of package.json, depending on what you did in the previous step) to test your CLI and make sure everything works as you expect it to.\n\n\nWhen you're ready to make your CLI available, you can publish it with \nnpm publish\n. That's it! You've made your first Orbital CLI. Take a look around the \nAPI docs\n for more detailed documentation, and more features of Orbital not discussed in this guide.", 
+            "title": "Publishing"
+        }, 
+        {
+            "location": "/guide/publishing/#publishing", 
+            "text": "Publishing your Orbital CLI is easy, and only takes a couple steps. This tutorial will show you how to publish to  npm .", 
+            "title": "Publishing"
+        }, 
+        {
+            "location": "/guide/publishing/#typescript-configuration", 
+            "text": "The most common source of problems in building your Orbital project is because of your  tsconfig.json  file. Make sure that the  experimentalDecorators  and  emitDecoratorMetadata  properties are set to  true .   Also, we recommend building to ES6, and only including your main entry file.   1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13 //   tsconfig.json  { \n     compilerOptions :   { \n         ... \n         experimentalDecorators :   true , \n         emitDecoratorMetadata :   true , \n         target :   es6 , \n         ... \n     }, \n     include :   [ \n         src/main.ts \n     ]  }", 
+            "title": "TypeScript Configuration"
+        }, 
+        {
+            "location": "/guide/publishing/#shebang", 
+            "text": "In order to make the command line aware that your program should be run as Node.JS, we need to include a \"shebang\" at the top of our main file. This will survive TypeScript compilation, and save your users a lot of headache.  1\n2 // src/main.ts  # ! /usr/bin/env node", 
+            "title": "Shebang"
+        }, 
+        {
+            "location": "/guide/publishing/#packagejson", 
+            "text": "To let NPM know that your file should have a command-line name, we need to include the  bin  property in  package.json . This will create a symlink to our main command executable file. If the command name is the same as your NPM package name, you can use the  bin  property as a string pointing to your entry file.  1\n2\n3\n4 //   package.json  { \n     bin :   src/main.ts  }    If you want your CLI to have a different name than the package, you must use  bin  as an object, where the key represents the executable name, and the value is the entry file.  1\n2\n3\n4\n5\n6\n7 //   package.json  { \n     name :   @orbital/cli , \n     bin :   { \n         ob :   src/main.ts \n     }  }", 
+            "title": "package.json"
+        }, 
+        {
+            "location": "/guide/publishing/#testing-the-command-name", 
+            "text": "To build your CLI, run  tsc  in your project directory. This compiles your source down to useable JavaScript that Node can read and parse. Before publishing, run  npm link  to create a local symlink to simulate how your command line will run. Now, you can use the command name (either in  bin  or  name  property of package.json, depending on what you did in the previous step) to test your CLI and make sure everything works as you expect it to.  When you're ready to make your CLI available, you can publish it with  npm publish . That's it! You've made your first Orbital CLI. Take a look around the  API docs  for more detailed documentation, and more features of Orbital not discussed in this guide.", 
+            "title": "Testing the command name"
+        }, 
+        {
+            "location": "/api/core/cli/", 
+            "text": "CLI\n\n\nType: \nClassDecorator\n\n\nThe CLI decorator provides the metadata for the entire CLI program.\n\n\nProperties\n\n\n\n\n\n\n\n\nProperty\n\n\nType\n\n\nDescription\n\n\nExample\n\n\n\n\n\n\n\n\n\n\nname\n\n\nstring\n\n\nThe \nbin\n name of the command, as it will be invoked by the user.\n\n\nob\n\n\n\n\n\n\nprettyName\n\n\nstring\n\n\nA cleaner, properly capitalized version of your CLI.\n\n\nThe Orbital CLI\n\n\n\n\n\n\nversion\n\n\nstring\n\n\nThe current version of your CLI package, as seen in package.json.\n\n\nv1.0.3\n\n\n\n\n\n\ndeclarations\n\n\nany[]\n\n\nArray of command and subcommand classes.\n\n\n[MyCommand, MySubcommand]\n\n\n\n\n\n\n\n\nUsage\n\n\n 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13\nimport\n \n{\n \nCLI\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\nimport\n \n{\n \nMyCommand\n \n}\n \nfrom\n \n./commands/my.command\n;\n\n\nimport\n \n{\n \nFooSubcommand\n \n}\n \nfrom\n \n./foo/foo.subcommand.ts\n;\n\n\n\n@CLI\n({\n\n    \nname\n:\n \nob\n,\n\n    \nprettyName\n:\n \nThe Orbital CLI\n,\n\n    \nversion\n:\n \nv1.0.3\n,\n\n    \ndeclarations\n:\n \n[\n\n        \nMyCommand\n,\n\n        \nMySubcommand\n\n    \n]\n\n\n})", 
+            "title": "CLI"
+        }, 
+        {
+            "location": "/api/core/cli/#cli", 
+            "text": "Type:  ClassDecorator  The CLI decorator provides the metadata for the entire CLI program.", 
+            "title": "CLI"
+        }, 
+        {
+            "location": "/api/core/cli/#properties", 
+            "text": "Property  Type  Description  Example      name  string  The  bin  name of the command, as it will be invoked by the user.  ob    prettyName  string  A cleaner, properly capitalized version of your CLI.  The Orbital CLI    version  string  The current version of your CLI package, as seen in package.json.  v1.0.3    declarations  any[]  Array of command and subcommand classes.  [MyCommand, MySubcommand]", 
+            "title": "Properties"
+        }, 
+        {
+            "location": "/api/core/cli/#usage", 
+            "text": "1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13 import   {   CLI   }   from   @orbital/core ;  import   {   MyCommand   }   from   ./commands/my.command ;  import   {   FooSubcommand   }   from   ./foo/foo.subcommand.ts ;  @CLI ({ \n     name :   ob , \n     prettyName :   The Orbital CLI , \n     version :   v1.0.3 , \n     declarations :   [ \n         MyCommand , \n         MySubcommand \n     ]  })", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/api/core/command/", 
+            "text": "Command\n\n\nType: \nClassDecorator\n\n\nThe \nCommand\n decorator declares an executable command instance.\n\n\nProperties\n\n\n\n\n\n\n\n\nProperty\n\n\nType\n\n\nDescription\n\n\nExample\n\n\n\n\n\n\n\n\n\n\nname\n\n\nstring\n\n\nThe standard name for your command. This should be a full word, or a hyphenated phrase and should succinctly describe the function that will be executed. \n Note: this will throw an error if the name is shared with another command\n\n\nnew\n\n\n\n\n\n\naliases\n\n\nstring[]\n\n\nAn optional array of strings that serve as shorthands for the command. Typically an abbreviation of the words or the first letter(s) of the command name. \n Note: this will throw an error if any of the aliases are duplicate with another command.\n\n\n[\nn\n]\n\n\n\n\n\n\ndescription\n\n\nstring\n\n\nA summary of what the command does;\n\n\nCreates a new project\n\n\n\n\n\n\n\n\nUsage\n\n\n1\n2\n3\n4\n5\n6\n7\nimport\n \n{\n \nCommand\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\n\n@Command\n({\n\n    \nname\n:\n \nnew\n,\n\n    \naliases\n:\n \n[\nn\n],\n\n    \ndescription\n:\n \nCreates a new project\n\n\n})", 
+            "title": "Command"
+        }, 
+        {
+            "location": "/api/core/command/#command", 
+            "text": "Type:  ClassDecorator  The  Command  decorator declares an executable command instance.", 
+            "title": "Command"
+        }, 
+        {
+            "location": "/api/core/command/#properties", 
+            "text": "Property  Type  Description  Example      name  string  The standard name for your command. This should be a full word, or a hyphenated phrase and should succinctly describe the function that will be executed.   Note: this will throw an error if the name is shared with another command  new    aliases  string[]  An optional array of strings that serve as shorthands for the command. Typically an abbreviation of the words or the first letter(s) of the command name.   Note: this will throw an error if any of the aliases are duplicate with another command.  [ n ]    description  string  A summary of what the command does;  Creates a new project", 
+            "title": "Properties"
+        }, 
+        {
+            "location": "/api/core/command/#usage", 
+            "text": "1\n2\n3\n4\n5\n6\n7 import   {   Command   }   from   @orbital/core ;  @Command ({ \n     name :   new , \n     aliases :   [ n ], \n     description :   Creates a new project  })", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/api/core/executable/", 
+            "text": "Executable\n\n\nType: \nClass\n\n\nThe \nExecutable\n class is an abstract class designed to be extended by command classes. Currently, it typechecks, ensuring that commands have an \nexecute()\n function, but it may have more properties in the future.\n\n\nProperties\n\n\n\n\n\n\n\n\nProperty\n\n\nType\n\n\nDescription\n\n\nExample\n\n\n\n\n\n\n\n\n\n\nexecute\n\n\n(...args: any[]) =\n void\n\n\nThe main method for the command to run. This is an abstract property, so it must be defined in your code.\n\n\nexecute() { console.log(\nfoo\n) }\n\n\n\n\n\n\n\n\nUsage\n\n\n 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\nimport\n \n{\n \nCommand\n,\n \nExecutable\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\n\n@Command\n({\n\n    \nname\n:\n \nfoo\n\n\n})\n\n\nexport\n \nclass\n \nFooCommand\n \nextends\n \nExecutable\n \n{\n\n    \nexecute() {\n\n        \nconsole\n.\nlog\n(\nfoo\n)\n\n    \n}\n\n\n}", 
+            "title": "Executable"
+        }, 
+        {
+            "location": "/api/core/executable/#executable", 
+            "text": "Type:  Class  The  Executable  class is an abstract class designed to be extended by command classes. Currently, it typechecks, ensuring that commands have an  execute()  function, but it may have more properties in the future.", 
+            "title": "Executable"
+        }, 
+        {
+            "location": "/api/core/executable/#properties", 
+            "text": "Property  Type  Description  Example      execute  (...args: any[]) =  void  The main method for the command to run. This is an abstract property, so it must be defined in your code.  execute() { console.log( foo ) }", 
+            "title": "Properties"
+        }, 
+        {
+            "location": "/api/core/executable/#usage", 
+            "text": "1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10 import   {   Command ,   Executable   }   from   @orbital/core ;  @Command ({ \n     name :   foo  })  export   class   FooCommand   extends   Executable   { \n     execute() { \n         console . log ( foo ) \n     }  }", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/api/core/option/", 
+            "text": "Option\n\n\nType: \nPropertyDecorator\n\n\nThe \nOption\n decorator declares an option of a command.\n\n\nProperties\n\n\n\n\n\n\n\n\nProperty\n\n\nType\n\n\nDescription\n\n\nExample\n\n\n\n\n\n\n\n\n\n\nname\n\n\nstring\n\n\nThe name that users can invoke with double-dashes\n\n\nhelp\n\n\n\n\n\n\naliases\n\n\nstring[]\n\n\nAn optional array of short names that can be substituted for the option\n\n\n[\nh\n]\n\n\n\n\n\n\ndescription\n\n\nstring\n\n\nA summary of what the option does.\n\n\nDisplays help for the command\n\n\n\n\n\n\n\n\nUsage\n\n\n1\n2\n3\n4\n5\n6\n7\n8\n9\nimport\n \n{\n \nOption\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\n\nexport\n \nclass\n \nMyCommand\n \n{\n\n    \n@Option\n({\n\n        \nname\n:\n \nhelp\n,\n\n        \naliases\n:\n \n[\nh\n],\n\n        \ndescription\n:\n \nDisplays help for the command\n\n    \n})\n \nshowHelp\n: \nboolean\n;\n\n\n}", 
+            "title": "Option"
+        }, 
+        {
+            "location": "/api/core/option/#option", 
+            "text": "Type:  PropertyDecorator  The  Option  decorator declares an option of a command.", 
+            "title": "Option"
+        }, 
+        {
+            "location": "/api/core/option/#properties", 
+            "text": "Property  Type  Description  Example      name  string  The name that users can invoke with double-dashes  help    aliases  string[]  An optional array of short names that can be substituted for the option  [ h ]    description  string  A summary of what the option does.  Displays help for the command", 
+            "title": "Properties"
+        }, 
+        {
+            "location": "/api/core/option/#usage", 
+            "text": "1\n2\n3\n4\n5\n6\n7\n8\n9 import   {   Option   }   from   @orbital/core ;  export   class   MyCommand   { \n     @Option ({ \n         name :   help , \n         aliases :   [ h ], \n         description :   Displays help for the command \n     })   showHelp :  boolean ;  }", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/api/core/orbital-factory/", 
+            "text": "OrbitalFactory\n\n\nType: \nClass\n\n\nThe \nOrbitalFactory\n class contains all of the Orbital runtime and parsing. It bootstraps and maps all of the commands in \ndeclarations\n, parses the command line input, and pipes that input into the execution.\n\n\nProperties\n\n\n\n\n\n\n\n\nProperty\n\n\nType\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nbootstrap\n\n\n`(cli: any) =\n typeof OrbitalFactory\n\n\nGenerates a map of executable commands\n\n\n\n\n\n\nexecute\n\n\n(argv: string[]) =\n void\n\n\nParses and executes the program\n\n\n\n\n\n\n\n\nUsage\n\n\n1\n2\n3\n4\n5\n6\nimport\n \n{\n \nOrbitalFactory\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\nimport\n \n{\n \nMyCLI\n \n}\n \nfrom\n \n./cli\n;\n\n\n\nOrbitalFactory\n\n    \n.\nbootstrap\n(\nMyCLI\n)\n\n    \n.\nexecute\n(\nprocess\n.\nargv\n)", 
+            "title": "OrbitalFactory"
+        }, 
+        {
+            "location": "/api/core/orbital-factory/#orbitalfactory", 
+            "text": "Type:  Class  The  OrbitalFactory  class contains all of the Orbital runtime and parsing. It bootstraps and maps all of the commands in  declarations , parses the command line input, and pipes that input into the execution.", 
+            "title": "OrbitalFactory"
+        }, 
+        {
+            "location": "/api/core/orbital-factory/#properties", 
+            "text": "Property  Type  Description      bootstrap  `(cli: any) =  typeof OrbitalFactory  Generates a map of executable commands    execute  (argv: string[]) =  void  Parses and executes the program", 
+            "title": "Properties"
+        }, 
+        {
+            "location": "/api/core/orbital-factory/#usage", 
+            "text": "1\n2\n3\n4\n5\n6 import   {   OrbitalFactory   }   from   @orbital/core ;  import   {   MyCLI   }   from   ./cli ;  OrbitalFactory \n     . bootstrap ( MyCLI ) \n     . execute ( process . argv )", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/api/core/param/", 
+            "text": "Param\n\n\nType: \nParameterDecorator\n\n\nThe \nParam\n decorator declares an parameter of a command.\n\n\nProperties\n\n\n\n\n\n\n\n\nProperty\n\n\nType\n\n\nDescription\n\n\nExample\n\n\n\n\n\n\n\n\n\n\nname\n\n\nstring\n\n\nThe name that shows up in help as a parameter of the command\n\n\nurl\n\n\n\n\n\n\nrequired\n\n\nboolean\n\n\nA boolean representing whether or not the parameter is mandatory. Default: \nfalse\n\n\ntrue\n\n\n\n\n\n\ndescription\n\n\nstring\n\n\nA summary of what the parameter does.\n\n\nThe URL for the image to download\n\n\n\n\n\n\n\n\nUsage\n\n\n 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\nimport\n \n{\n \nParam\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\n\nexport\n \nclass\n \nMyCommand\n \n{\n\n    \nexecute\n(\n\n        \n@Param\n({\n\n            \nname\n:\n \nurl\n,\n\n            \nrequired\n: \ntrue\n,\n\n            \ndescription\n:\n \nThe URL for the image to download\n\n        \n})\n \nimageUrl\n: \nstring\n\n    \n)\n\n\n}", 
+            "title": "Param"
+        }, 
+        {
+            "location": "/api/core/param/#param", 
+            "text": "Type:  ParameterDecorator  The  Param  decorator declares an parameter of a command.", 
+            "title": "Param"
+        }, 
+        {
+            "location": "/api/core/param/#properties", 
+            "text": "Property  Type  Description  Example      name  string  The name that shows up in help as a parameter of the command  url    required  boolean  A boolean representing whether or not the parameter is mandatory. Default:  false  true    description  string  A summary of what the parameter does.  The URL for the image to download", 
+            "title": "Properties"
+        }, 
+        {
+            "location": "/api/core/param/#usage", 
+            "text": "1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11 import   {   Param   }   from   @orbital/core ;  export   class   MyCommand   { \n     execute ( \n         @Param ({ \n             name :   url , \n             required :  true , \n             description :   The URL for the image to download \n         })   imageUrl :  string \n     )  }", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/api/core/subcommand-group/", 
+            "text": "SubcommandGroup\n\n\nType: \nClassDecorator\n\n\nThe \nSubcommandGroup\n decorator declares a group of commands with a common parent.\n\n\nProperties\n\n\n\n\n\n\n\n\nProperty\n\n\nType\n\n\nDescription\n\n\nExample\n\n\n\n\n\n\n\n\n\n\nname\n\n\nstring\n\n\n* The standard name for your subcommand group. This should be a full word, or a hyphenated phrase and should succinctly describe the group of functions that will be executed. \n Note: this will throw an error if the name is shared with another command\n\n\nremote\n\n\n\n\n\n\naliases\n\n\nstring[]\n\n\nAn optional array of strings that serve as shorthands for the command. Typically and abbreviation of the words or the first letter(s) of the command name. \n Note: this will throw an error if any of the aliases are duplicate with another command.\n\n\n[\nr\n]\n\n\n\n\n\n\ndescription\n\n\nstring\n\n\nA description of what the subcommands do collectively.\n\n\nManipulate data on remote git repositories.\n\n\n\n\n\n\ndeclarations\n\n\nany[]\n\n\nArray of command and subcommand classes.\n\n\n[MyCommand, MySubcommand]\n\n\n\n\n\n\n\n\nUsage\n\n\n 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13\nimport\n \n{\n \nSubcommandGroup\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\nimport\n \n{\n \nMyCommand\n \n}\n \nfrom\n \n./commands/my.command\n;\n\n\nimport\n \n{\n \nFooSubcommand\n \n}\n \nfrom\n \n./foo/foo.subcommand.ts\n;\n\n\n\n@SubcommandGroup\n({\n\n    \nname\n:\n \nremote\n,\n\n    \ndescription\n:\n \nManipulate data on remote git repositories.\n,\n\n    \naliases\n:\n \n[\nr\n],\n\n    \ndeclarations\n:\n \n[\n\n        \nMyCommand\n,\n\n        \nMySubcommand\n\n    \n]\n\n\n})", 
+            "title": "SubcommandGroup"
+        }, 
+        {
+            "location": "/api/core/subcommand-group/#subcommandgroup", 
+            "text": "Type:  ClassDecorator  The  SubcommandGroup  decorator declares a group of commands with a common parent.", 
+            "title": "SubcommandGroup"
+        }, 
+        {
+            "location": "/api/core/subcommand-group/#properties", 
+            "text": "Property  Type  Description  Example      name  string  * The standard name for your subcommand group. This should be a full word, or a hyphenated phrase and should succinctly describe the group of functions that will be executed.   Note: this will throw an error if the name is shared with another command  remote    aliases  string[]  An optional array of strings that serve as shorthands for the command. Typically and abbreviation of the words or the first letter(s) of the command name.   Note: this will throw an error if any of the aliases are duplicate with another command.  [ r ]    description  string  A description of what the subcommands do collectively.  Manipulate data on remote git repositories.    declarations  any[]  Array of command and subcommand classes.  [MyCommand, MySubcommand]", 
+            "title": "Properties"
+        }, 
+        {
+            "location": "/api/core/subcommand-group/#usage", 
+            "text": "1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13 import   {   SubcommandGroup   }   from   @orbital/core ;  import   {   MyCommand   }   from   ./commands/my.command ;  import   {   FooSubcommand   }   from   ./foo/foo.subcommand.ts ;  @SubcommandGroup ({ \n     name :   remote , \n     description :   Manipulate data on remote git repositories. , \n     aliases :   [ r ], \n     declarations :   [ \n         MyCommand , \n         MySubcommand \n     ]  })", 
+            "title": "Usage"
         }
     ]
 }
