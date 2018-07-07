@@ -50,6 +50,7 @@ pages:
           - CLI: api/core/cli.md
           - Command: api/core/command.md
           - Executable: api/core/executable.md
+          - enableProdMode: api/core/enable-prod-mode.md
           - Option: api/core/option.md
           - OrbitalFactory: api/core/orbital-factory.md
           - Param: api/core/param.md
