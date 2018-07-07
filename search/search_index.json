@@ -222,7 +222,7 @@
         }, 
         {
             "location": "/guide/publishing/", 
-            "text": "Publishing\n\n\nPublishing your Orbital CLI is easy, and only takes a couple steps. This tutorial will show you how to publish to \nnpm\n.\n\n\nTypeScript Configuration\n\n\nThe most common source of problems in building your Orbital project is because of your \ntsconfig.json\n file. Make sure that the \nexperimentalDecorators\n and \nemitDecoratorMetadata\n properties are set to \ntrue\n. \n\n\nAlso, we recommend building to ES6, and only including your main entry file.\n\n\n 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13\n//\n \ntsconfig.json\n\n\n{\n\n    \ncompilerOptions\n:\n \n{\n\n        \n...\n\n        \nexperimentalDecorators\n:\n \ntrue\n,\n\n        \nemitDecoratorMetadata\n:\n \ntrue\n,\n\n        \ntarget\n:\n \nes6\n,\n\n        \n...\n\n    \n},\n\n    \ninclude\n:\n \n[\n\n        \nsrc/main.ts\n\n    \n]\n\n\n}\n\n\n\n\n\n\n\nShebang\n\n\nIn order to make the command line aware that your program should be run as Node.JS, we need to include a \"shebang\" at the top of our main file. This will survive TypeScript compilation, and save your users a lot of headache.\n\n\n1\n2\n// src/main.ts\n\n\n#\n!\n/usr/bin/env node\n\n\n\n\n\n\n\npackage.json\n\n\nTo let NPM know that your file should have a command-line name, we need to include the \nbin\n property in \npackage.json\n. This will create a symlink to our main command executable file. If the command name is the same as your NPM package name, you can use the \nbin\n property as a string pointing to your entry file.\n\n\n1\n2\n3\n4\n//\n \npackage.json\n\n\n{\n\n    \nbin\n:\n \nsrc/main.ts\n\n\n}\n\n\n\n\n\n\n\nIf you want your CLI to have a different name than the package, you must use \nbin\n as an object, where the key represents the executable name, and the value is the entry file.\n\n\n1\n2\n3\n4\n5\n6\n7\n//\n \npackage.json\n\n\n{\n\n    \nname\n:\n \n@orbital/cli\n,\n\n    \nbin\n:\n \n{\n\n        \nob\n:\n \nsrc/main.ts\n\n    \n}\n\n\n}\n\n\n\n\n\n\n\nTesting the command name\n\n\nTo build your CLI, run \ntsc\n in your project directory. This compiles your source down to useable JavaScript that Node can read and parse. Before publishing, run \nnpm link\n to create a local symlink to simulate how your command line will run. Now, you can use the command name (either in \nbin\n or \nname\n property of package.json, depending on what you did in the previous step) to test your CLI and make sure everything works as you expect it to.\n\n\nWhen you're ready to make your CLI available, you can publish it with \nnpm publish\n. That's it! You've made your first Orbital CLI. Take a look around the \nAPI docs\n for more detailed documentation, and more features of Orbital not discussed in this guide.", 
+            "text": "Publishing\n\n\nPublishing your Orbital CLI is easy, and only takes a couple steps. This tutorial will show you how to publish to \nnpm\n.\n\n\nTypeScript Configuration\n\n\nThe most common source of problems in building your Orbital project is because of your \ntsconfig.json\n file. Make sure that the \nexperimentalDecorators\n and \nemitDecoratorMetadata\n properties are set to \ntrue\n. \n\n\nAlso, we recommend building to ES6, and only including your main entry file.\n\n\n 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13\n//\n \ntsconfig.json\n\n\n{\n\n    \ncompilerOptions\n:\n \n{\n\n        \n...\n\n        \nexperimentalDecorators\n:\n \ntrue\n,\n\n        \nemitDecoratorMetadata\n:\n \ntrue\n,\n\n        \ntarget\n:\n \nes6\n,\n\n        \n...\n\n    \n},\n\n    \ninclude\n:\n \n[\n\n        \nsrc/main.ts\n\n    \n]\n\n\n}\n\n\n\n\n\n\n\nProduction Mode\n\n\nOrbital has many runtime checks to make sure that you follow good naming practices, such as erroring when names are duplicated, or when an optional parameter precedes a required one. Also, Orbital generates helpful stack traces to tell you exactly where your error is. However, depending on the size of your project, this can have a serious toll on runtime performance. However, we can use \nenableProdMode()\n to disable those runtime checks, making performance faster for our users.\n\n\n1\n2\n3\n4\n5\n6\n7\n// src/main.ts\n\n\nimport\n \n{\n \nenableProdMode\n,\n \nOrbitalFactory\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\n\nenableProdMode\n();\n\n\n\nOrbitalFactory\n  \n    \n.\nbootstrap\n(...)\n\n\n\n\n\n\n\nShebang\n\n\nIn order to make the command line aware that your program should be run as Node.JS, we need to include a \"shebang\" at the top of our main file. This will survive TypeScript compilation, and save your users a lot of headache.\n\n\n1\n2\n// src/main.ts\n\n\n#\n!\n/usr/bin/env node\n\n\n\n\n\n\n\npackage.json\n\n\nTo let NPM know that your file should have a command-line name, we need to include the \nbin\n property in \npackage.json\n. This will create a symlink to our main command executable file. If the command name is the same as your NPM package name, you can use the \nbin\n property as a string pointing to your entry file.\n\n\n1\n2\n3\n4\n//\n \npackage.json\n\n\n{\n\n    \nbin\n:\n \nsrc/main.ts\n\n\n}\n\n\n\n\n\n\n\nIf you want your CLI to have a different name than the package, you must use \nbin\n as an object, where the key represents the executable name, and the value is the entry file.\n\n\n1\n2\n3\n4\n5\n6\n7\n//\n \npackage.json\n\n\n{\n\n    \nname\n:\n \n@orbital/cli\n,\n\n    \nbin\n:\n \n{\n\n        \nob\n:\n \nsrc/main.ts\n\n    \n}\n\n\n}\n\n\n\n\n\n\n\nTesting the command name\n\n\nTo build your CLI, run \ntsc\n in your project directory. This compiles your source down to useable JavaScript that Node can read and parse. Before publishing, run \nnpm link\n to create a local symlink to simulate how your command line will run. Now, you can use the command name (either in \nbin\n or \nname\n property of package.json, depending on what you did in the previous step) to test your CLI and make sure everything works as you expect it to.\n\n\nDeploying to NPM\n\n\nWhen you're ready to make your CLI available, you can publish it with \nnpm publish\n. That's it! You've made your first Orbital CLI. Take a look around the \nAPI docs\n for more detailed documentation, and more features of Orbital not discussed in this guide.", 
             "title": "Publishing"
         }, 
         {
@@ -236,6 +236,11 @@
             "title": "TypeScript Configuration"
         }, 
         {
+            "location": "/guide/publishing/#production-mode", 
+            "text": "Orbital has many runtime checks to make sure that you follow good naming practices, such as erroring when names are duplicated, or when an optional parameter precedes a required one. Also, Orbital generates helpful stack traces to tell you exactly where your error is. However, depending on the size of your project, this can have a serious toll on runtime performance. However, we can use  enableProdMode()  to disable those runtime checks, making performance faster for our users.  1\n2\n3\n4\n5\n6\n7 // src/main.ts  import   {   enableProdMode ,   OrbitalFactory   }   from   @orbital/core ;  enableProdMode ();  OrbitalFactory   \n     . bootstrap (...)", 
+            "title": "Production Mode"
+        }, 
+        {
             "location": "/guide/publishing/#shebang", 
             "text": "In order to make the command line aware that your program should be run as Node.JS, we need to include a \"shebang\" at the top of our main file. This will survive TypeScript compilation, and save your users a lot of headache.  1\n2 // src/main.ts  # ! /usr/bin/env node", 
             "title": "Shebang"
@@ -247,8 +252,13 @@
         }, 
         {
             "location": "/guide/publishing/#testing-the-command-name", 
-            "text": "To build your CLI, run  tsc  in your project directory. This compiles your source down to useable JavaScript that Node can read and parse. Before publishing, run  npm link  to create a local symlink to simulate how your command line will run. Now, you can use the command name (either in  bin  or  name  property of package.json, depending on what you did in the previous step) to test your CLI and make sure everything works as you expect it to.  When you're ready to make your CLI available, you can publish it with  npm publish . That's it! You've made your first Orbital CLI. Take a look around the  API docs  for more detailed documentation, and more features of Orbital not discussed in this guide.", 
+            "text": "To build your CLI, run  tsc  in your project directory. This compiles your source down to useable JavaScript that Node can read and parse. Before publishing, run  npm link  to create a local symlink to simulate how your command line will run. Now, you can use the command name (either in  bin  or  name  property of package.json, depending on what you did in the previous step) to test your CLI and make sure everything works as you expect it to.", 
             "title": "Testing the command name"
+        }, 
+        {
+            "location": "/guide/publishing/#deploying-to-npm", 
+            "text": "When you're ready to make your CLI available, you can publish it with  npm publish . That's it! You've made your first Orbital CLI. Take a look around the  API docs  for more detailed documentation, and more features of Orbital not discussed in this guide.", 
+            "title": "Deploying to NPM"
         }, 
         {
             "location": "/api/core/cli/", 
@@ -308,6 +318,21 @@
         {
             "location": "/api/core/executable/#usage", 
             "text": "1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10 import   {   Command ,   Executable   }   from   @orbital/core ;  @Command ({ \n     name :   foo  })  export   class   FooCommand   extends   Executable   { \n     execute() { \n         console . log ( foo ) \n     }  }", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/api/core/enable-prod-mode/", 
+            "text": "CLI\n\n\nType: \nFunction\n\n\nenableProdMode\n supresses error output and tedious runtime checks to improve performance. It's basically the \"I know what I'm doing, don't check anything\" button for Orbital.\n\n\nUsage\n\n\n1\n2\n3\n4\n5\n6\n7\n8\nimport\n \n{\n \nOrbitalFactory\n,\n \nenableProdMode\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\nimport\n \n{\n \nMyCLI\n \n}\n \nfrom\n \n./cli\n;\n\n\n\nenableProdMode\n();\n\n\n\nOrbitalFactory\n\n    \n.\nbootstrap\n(\nMyCLI\n)\n\n    \n.\nexecute\n(\nprocess\n.\nargv\n);", 
+            "title": "enableProdMode"
+        }, 
+        {
+            "location": "/api/core/enable-prod-mode/#cli", 
+            "text": "Type:  Function  enableProdMode  supresses error output and tedious runtime checks to improve performance. It's basically the \"I know what I'm doing, don't check anything\" button for Orbital.", 
+            "title": "CLI"
+        }, 
+        {
+            "location": "/api/core/enable-prod-mode/#usage", 
+            "text": "1\n2\n3\n4\n5\n6\n7\n8 import   {   OrbitalFactory ,   enableProdMode   }   from   @orbital/core ;  import   {   MyCLI   }   from   ./cli ;  enableProdMode ();  OrbitalFactory \n     . bootstrap ( MyCLI ) \n     . execute ( process . argv );", 
             "title": "Usage"
         }, 
         {

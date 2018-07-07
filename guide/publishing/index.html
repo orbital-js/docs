@@ -436,6 +436,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#production-mode" title="Production Mode" class="md-nav__link">
+    Production Mode
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#shebang" title="Shebang" class="md-nav__link">
     Shebang
   </a>
@@ -452,6 +459,13 @@
         <li class="md-nav__item">
   <a href="#testing-the-command-name" title="Testing the command name" class="md-nav__link">
     Testing the command name
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-to-npm" title="Deploying to NPM" class="md-nav__link">
+    Deploying to NPM
   </a>
   
 </li>
@@ -550,6 +564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../api/core/enable-prod-mode/" title="enableProdMode" class="md-nav__link">
+      enableProdMode
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../api/core/option/" title="Option" class="md-nav__link">
       Option
     </a>
@@ -630,6 +656,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#production-mode" title="Production Mode" class="md-nav__link">
+    Production Mode
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#shebang" title="Shebang" class="md-nav__link">
     Shebang
   </a>
@@ -646,6 +679,13 @@
         <li class="md-nav__item">
   <a href="#testing-the-command-name" title="Testing the command name" class="md-nav__link">
     Testing the command name
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-to-npm" title="Deploying to NPM" class="md-nav__link">
+    Deploying to NPM
   </a>
   
 </li>
@@ -700,6 +740,24 @@
 </pre></div>
 </td></tr></table>
 
+<h2 id="production-mode">Production Mode</h2>
+<p>Orbital has many runtime checks to make sure that you follow good naming practices, such as erroring when names are duplicated, or when an optional parameter precedes a required one. Also, Orbital generates helpful stack traces to tell you exactly where your error is. However, depending on the size of your project, this can have a serious toll on runtime performance. However, we can use <code class="codehilite">enableProdMode()</code> to disable those runtime checks, making performance faster for our users.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1">// src/main.ts</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">enableProdMode</span><span class="p">,</span> <span class="nx">OrbitalFactory</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@orbital/core&#39;</span><span class="p">;</span>
+
+<span class="nx">enableProdMode</span><span class="p">();</span>
+
+<span class="nx">OrbitalFactory</span>  
+    <span class="p">.</span><span class="nx">bootstrap</span><span class="p">(...)</span>
+</pre></div>
+</td></tr></table>
+
 <h2 id="shebang">Shebang</h2>
 <p>In order to make the command line aware that your program should be run as Node.JS, we need to include a "shebang" at the top of our main file. This will survive TypeScript compilation, and save your users a lot of headache.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
@@ -739,6 +797,7 @@
 
 <h2 id="testing-the-command-name">Testing the command name</h2>
 <p>To build your CLI, run <code class="codehilite">tsc</code> in your project directory. This compiles your source down to useable JavaScript that Node can read and parse. Before publishing, run <code class="codehilite">npm link</code> to create a local symlink to simulate how your command line will run. Now, you can use the command name (either in <code class="codehilite">bin</code> or <code class="codehilite">name</code> property of package.json, depending on what you did in the previous step) to test your CLI and make sure everything works as you expect it to.</p>
+<h2 id="deploying-to-npm">Deploying to NPM</h2>
 <p>When you're ready to make your CLI available, you can publish it with <code class="codehilite">npm publish</code>. That's it! You've made your first Orbital CLI. Take a look around the <a href="../../../api">API docs</a> for more detailed documentation, and more features of Orbital not discussed in this guide.</p>
                 
                   
