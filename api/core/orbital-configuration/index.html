@@ -13,7 +13,7 @@
         <meta name="description" content="Official Documentation for the Orbital CLI Framework">
       
       
-        <link rel="canonical" href="https://docs.orbital.sh/api/core/executable/">
+        <link rel="canonical" href="https://docs.orbital.sh/api/core/orbital-configuration/">
       
       
         <meta name="author" content="Orbital Team">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Executable - Orbital Docs</title>
+        <title>OrbitalConfiguration - Orbital Docs</title>
       
     
     
@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
-      <a href="#executable" tabindex="1" class="md-skip">
+      <a href="#orbitalconfiguration" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -126,7 +126,7 @@
                 Orbital Docs
               </span>
               <span class="md-header-nav__topic">
-                Executable
+                OrbitalConfiguration
               </span>
             
           
@@ -493,6 +493,42 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../executable/" title="Executable" class="md-nav__link">
+      Executable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../enable-prod-mode/" title="enableProdMode" class="md-nav__link">
+      enableProdMode
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../option/" title="Option" class="md-nav__link">
+      Option
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -504,11 +540,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="toc">
-        Executable
+        OrbitalConfiguration
       </label>
     
-    <a href="./" title="Executable" class="md-nav__link md-nav__link--active">
-      Executable
+    <a href="./" title="OrbitalConfiguration" class="md-nav__link md-nav__link--active">
+      OrbitalConfiguration
     </a>
     
       
@@ -541,42 +577,6 @@
   
 </nav>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../enable-prod-mode/" title="enableProdMode" class="md-nav__link">
-      enableProdMode
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../option/" title="Option" class="md-nav__link">
-      Option
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../orbital-configuration/" title="OrbitalConfiguration" class="md-nav__link">
-      OrbitalConfiguration
-    </a>
   </li>
 
         
@@ -686,12 +686,12 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/orbital-js/docs/edit/master/docs/api/core/executable.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/orbital-js/docs/edit/master/docs/api/core/orbital-configuration.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="executable">Executable</h1>
-<p>Type: <strong>Class</strong></p>
-<p>The <code class="codehilite">Executable</code> class is an abstract class designed to be extended by command classes. Currently, it typechecks, ensuring that commands have an <code class="codehilite">execute()</code> function, but it may have more properties in the future.</p>
+                <h1 id="orbitalconfiguration">OrbitalConfiguration</h1>
+<p>Type: <strong>Interface</strong></p>
+<p>The <code class="codehilite">OrbitalConfiguration</code> interface has all the configurable properties for Orbital projects. Should be assigned to <code class="codehilite">config</code> property of CLI.</p>
 <h2 id="properties">Properties</h2>
 <table>
 <thead>
@@ -704,10 +704,16 @@
 </thead>
 <tbody>
 <tr>
-<td><code class="codehilite">execute</code></td>
-<td><code class="codehilite">(...args: any[]) =&gt; void</code></td>
-<td>The main method for the command to run. This is an abstract property, so it must be defined in your code.</td>
-<td><code class="codehilite">execute() { console.log(&#39;foo&#39;) }</code></td>
+<td><code class="codehilite">helpMessage</code></td>
+<td><code class="codehilite">string</code></td>
+<td>The first message that will be displayed to CLI users.</td>
+<td><code class="codehilite">&#39;This is help for my CLI.&#39;</code></td>
+</tr>
+<tr>
+<td><code class="codehilite">loggerPrefix</code></td>
+<td><code class="codehilite">string</code></td>
+<td>The message that comes before logger messages</td>
+<td><code class="codehilite">&#39;Orbital&#39;</code></td>
 </tr>
 </tbody>
 </table>
@@ -721,7 +727,7 @@
  7
  8
  9
-10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Command</span><span class="p">,</span> <span class="nx">Executable</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@orbital/core&#39;</span><span class="p">;</span>
+10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">OrbitalConfiguration</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@orbital/core&#39;</span><span class="p">;</span>
 
 <span class="kd">@Command</span><span class="p">({</span>
     <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span>
@@ -751,7 +757,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../command/" title="Command" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../option/" title="Option" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -760,19 +766,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Command
+                Option
               </span>
             </div>
           </a>
         
         
-          <a href="../enable-prod-mode/" title="enableProdMode" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../orbital-factory/" title="OrbitalFactory" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                enableProdMode
+                OrbitalFactory
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

@@ -221,6 +221,36 @@
             "title": "Example"
         }, 
         {
+            "location": "/guide/configuration/", 
+            "text": "Configuration\n\n\nOrbital lets you have granular control over how your API works. In this guide, we will discuss some example configuration options, as well as how to use tokens to substitute CLI variables into your configuration.\n\n\nCreate \nconfig.ts\n\n\nThe first thing to do is to create \nconfig.ts\n. Put it with on the same level as \ncli.ts\n and \nmain.ts\n. Then, in this new file, import the \nOrbitalConfiguration\n interface, and create a constant called \nconfig\n.\n\n\n1\n2\n3\nimport\n \n{\n \nOrbitalConfiguration\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\n\nexport\n \nconst\n \nconfig\n: \nOrbitalConfiguration\n \n=\n \n{\n \n};\n\n\n\n\n\n\n\nAdd properties\n\n\nA full list of properties is available in /api/core/orbital-configuration, but in this guide, we will use \nhelpMessage\n as an example. \nhelpMessage\n is the first thing your users will see when help is generated, so it's good to put information about what program they are using, and a link to documentation online.\n\n\n1\n2\n3\n4\n5\nimport\n \n{\n \nOrbitalConfiguration\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\n\nexport\n \nconst\n \nconfig\n: \nOrbitalConfiguration\n \n=\n \n{\n \n    \nhelpMessage\n:\n \nThank you for using the Orbital CLI. For information on how to use the CLI, visit https://docs.orbital.sh/reading-the-docs.\n\n\n};\n\n\n\n\n\n\n\nUsing tokens to substitute variables\n\n\nIf you refer to the CLI name a lot in your config, it can be a challenge to replace all the instances if something changes. That's where tokens come in. Tokens are special constants that the Orbital runtime recognizes and replaces for you, so it is always up to date with the value elsewhere in your program.\n\n\n1\n2\n3\n4\n5\nimport\n \n{\n \nOrbitalConfiguration\n,\n \nPRETTY_NAME\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\n\nexport\n \nconst\n \nconfig\n: \nOrbitalConfiguration\n \n=\n \n{\n\n    \nhelpMessage\n:\n \nThank you for using the \n \n+\n \nPRETTY_NAME\n \n+\n \n. For information on how to use the CLI, visit https://docs.orbital.sh/reading-the-docs.\n\n\n};\n\n\n\n\n\n\n\nWhen the help is generated, PRETTY_NAME will be replaced with the actual \nprettyName\n value in your CLI Metadata.\n\n\nLinking into CLI\n\n\nNow, we can assign this new constant to the \nconfig\n property inside our CLI metadata.\n\n\n1\n2\n3\n4\n5\n6\n7\nimport\n \n{\n \nconfig\n \n}\n \nfrom\n \n./config\n;\n\n\n\n@CLI\n({\n\n    \n...\n\n    \nconfig\n: \nconfig\n\n\n})\n\n\nexport\n \nclass\n \nMyCLI\n \n{\n \n}", 
+            "title": "Configuration"
+        }, 
+        {
+            "location": "/guide/configuration/#configuration", 
+            "text": "Orbital lets you have granular control over how your API works. In this guide, we will discuss some example configuration options, as well as how to use tokens to substitute CLI variables into your configuration.", 
+            "title": "Configuration"
+        }, 
+        {
+            "location": "/guide/configuration/#create-configts", 
+            "text": "The first thing to do is to create  config.ts . Put it with on the same level as  cli.ts  and  main.ts . Then, in this new file, import the  OrbitalConfiguration  interface, and create a constant called  config .  1\n2\n3 import   {   OrbitalConfiguration   }   from   @orbital/core ;  export   const   config :  OrbitalConfiguration   =   {   };", 
+            "title": "Create config.ts"
+        }, 
+        {
+            "location": "/guide/configuration/#add-properties", 
+            "text": "A full list of properties is available in /api/core/orbital-configuration, but in this guide, we will use  helpMessage  as an example.  helpMessage  is the first thing your users will see when help is generated, so it's good to put information about what program they are using, and a link to documentation online.  1\n2\n3\n4\n5 import   {   OrbitalConfiguration   }   from   @orbital/core ;  export   const   config :  OrbitalConfiguration   =   {  \n     helpMessage :   Thank you for using the Orbital CLI. For information on how to use the CLI, visit https://docs.orbital.sh/reading-the-docs.  };", 
+            "title": "Add properties"
+        }, 
+        {
+            "location": "/guide/configuration/#using-tokens-to-substitute-variables", 
+            "text": "If you refer to the CLI name a lot in your config, it can be a challenge to replace all the instances if something changes. That's where tokens come in. Tokens are special constants that the Orbital runtime recognizes and replaces for you, so it is always up to date with the value elsewhere in your program.  1\n2\n3\n4\n5 import   {   OrbitalConfiguration ,   PRETTY_NAME   }   from   @orbital/core ;  export   const   config :  OrbitalConfiguration   =   { \n     helpMessage :   Thank you for using the    +   PRETTY_NAME   +   . For information on how to use the CLI, visit https://docs.orbital.sh/reading-the-docs.  };    When the help is generated, PRETTY_NAME will be replaced with the actual  prettyName  value in your CLI Metadata.", 
+            "title": "Using tokens to substitute variables"
+        }, 
+        {
+            "location": "/guide/configuration/#linking-into-cli", 
+            "text": "Now, we can assign this new constant to the  config  property inside our CLI metadata.  1\n2\n3\n4\n5\n6\n7 import   {   config   }   from   ./config ;  @CLI ({ \n     ... \n     config :  config  })  export   class   MyCLI   {   }", 
+            "title": "Linking into CLI"
+        }, 
+        {
             "location": "/guide/publishing/", 
             "text": "Publishing\n\n\nPublishing your Orbital CLI is easy, and only takes a couple steps. This tutorial will show you how to publish to \nnpm\n.\n\n\nTypeScript Configuration\n\n\nThe most common source of problems in building your Orbital project is because of your \ntsconfig.json\n file. Make sure that the \nexperimentalDecorators\n and \nemitDecoratorMetadata\n properties are set to \ntrue\n. \n\n\nAlso, we recommend building to ES6, and only including your main entry file.\n\n\n 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13\n//\n \ntsconfig.json\n\n\n{\n\n    \ncompilerOptions\n:\n \n{\n\n        \n...\n\n        \nexperimentalDecorators\n:\n \ntrue\n,\n\n        \nemitDecoratorMetadata\n:\n \ntrue\n,\n\n        \ntarget\n:\n \nes6\n,\n\n        \n...\n\n    \n},\n\n    \ninclude\n:\n \n[\n\n        \nsrc/main.ts\n\n    \n]\n\n\n}\n\n\n\n\n\n\n\nProduction Mode\n\n\nOrbital has many runtime checks to make sure that you follow good naming practices, such as erroring when names are duplicated, or when an optional parameter precedes a required one. Also, Orbital generates helpful stack traces to tell you exactly where your error is. However, depending on the size of your project, this can have a serious toll on runtime performance. However, we can use \nenableProdMode()\n to disable those runtime checks, making performance faster for our users.\n\n\n1\n2\n3\n4\n5\n6\n7\n// src/main.ts\n\n\nimport\n \n{\n \nenableProdMode\n,\n \nOrbitalFactory\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\n\nenableProdMode\n();\n\n\n\nOrbitalFactory\n  \n    \n.\nbootstrap\n(...)\n\n\n\n\n\n\n\nShebang\n\n\nIn order to make the command line aware that your program should be run as Node.JS, we need to include a \"shebang\" at the top of our main file. This will survive TypeScript compilation, and save your users a lot of headache.\n\n\n1\n2\n// src/main.ts\n\n\n#\n!\n/usr/bin/env node\n\n\n\n\n\n\n\npackage.json\n\n\nTo let NPM know that your file should have a command-line name, we need to include the \nbin\n property in \npackage.json\n. This will create a symlink to our main command executable file. If the command name is the same as your NPM package name, you can use the \nbin\n property as a string pointing to your entry file.\n\n\n1\n2\n3\n4\n//\n \npackage.json\n\n\n{\n\n    \nbin\n:\n \nsrc/main.ts\n\n\n}\n\n\n\n\n\n\n\nIf you want your CLI to have a different name than the package, you must use \nbin\n as an object, where the key represents the executable name, and the value is the entry file.\n\n\n1\n2\n3\n4\n5\n6\n7\n//\n \npackage.json\n\n\n{\n\n    \nname\n:\n \n@orbital/cli\n,\n\n    \nbin\n:\n \n{\n\n        \nob\n:\n \nsrc/main.ts\n\n    \n}\n\n\n}\n\n\n\n\n\n\n\nTesting the command name\n\n\nTo build your CLI, run \ntsc\n in your project directory. This compiles your source down to useable JavaScript that Node can read and parse. Before publishing, run \nnpm link\n to create a local symlink to simulate how your command line will run. Now, you can use the command name (either in \nbin\n or \nname\n property of package.json, depending on what you did in the previous step) to test your CLI and make sure everything works as you expect it to.\n\n\nDeploying to NPM\n\n\nWhen you're ready to make your CLI available, you can publish it with \nnpm publish\n. That's it! You've made your first Orbital CLI. Take a look around the \nAPI docs\n for more detailed documentation, and more features of Orbital not discussed in this guide.", 
             "title": "Publishing"
@@ -356,6 +386,26 @@
             "title": "Usage"
         }, 
         {
+            "location": "/api/core/orbital-configuration/", 
+            "text": "OrbitalConfiguration\n\n\nType: \nInterface\n\n\nThe \nOrbitalConfiguration\n interface has all the configurable properties for Orbital projects. Should be assigned to \nconfig\n property of CLI.\n\n\nProperties\n\n\n\n\n\n\n\n\nProperty\n\n\nType\n\n\nDescription\n\n\nExample\n\n\n\n\n\n\n\n\n\n\nhelpMessage\n\n\nstring\n\n\nThe first message that will be displayed to CLI users.\n\n\nThis is help for my CLI.\n\n\n\n\n\n\nloggerPrefix\n\n\nstring\n\n\nThe message that comes before logger messages\n\n\nOrbital\n\n\n\n\n\n\n\n\nUsage\n\n\n 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\nimport\n \n{\n \nOrbitalConfiguration\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\n\n@Command\n({\n\n    \nname\n:\n \nfoo\n\n\n})\n\n\nexport\n \nclass\n \nFooCommand\n \nextends\n \nExecutable\n \n{\n\n    \nexecute() {\n\n        \nconsole\n.\nlog\n(\nfoo\n)\n\n    \n}\n\n\n}", 
+            "title": "OrbitalConfiguration"
+        }, 
+        {
+            "location": "/api/core/orbital-configuration/#orbitalconfiguration", 
+            "text": "Type:  Interface  The  OrbitalConfiguration  interface has all the configurable properties for Orbital projects. Should be assigned to  config  property of CLI.", 
+            "title": "OrbitalConfiguration"
+        }, 
+        {
+            "location": "/api/core/orbital-configuration/#properties", 
+            "text": "Property  Type  Description  Example      helpMessage  string  The first message that will be displayed to CLI users.  This is help for my CLI.    loggerPrefix  string  The message that comes before logger messages  Orbital", 
+            "title": "Properties"
+        }, 
+        {
+            "location": "/api/core/orbital-configuration/#usage", 
+            "text": "1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10 import   {   OrbitalConfiguration   }   from   @orbital/core ;  @Command ({ \n     name :   foo  })  export   class   FooCommand   extends   Executable   { \n     execute() { \n         console . log ( foo ) \n     }  }", 
+            "title": "Usage"
+        }, 
+        {
             "location": "/api/core/orbital-factory/", 
             "text": "OrbitalFactory\n\n\nType: \nClass\n\n\nThe \nOrbitalFactory\n class contains all of the Orbital runtime and parsing. It bootstraps and maps all of the commands in \ndeclarations\n, parses the command line input, and pipes that input into the execution.\n\n\nProperties\n\n\n\n\n\n\n\n\nProperty\n\n\nType\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nbootstrap\n\n\n`(cli: any) =\n typeof OrbitalFactory\n\n\nGenerates a map of executable commands\n\n\n\n\n\n\nexecute\n\n\n(argv: string[]) =\n void\n\n\nParses and executes the program\n\n\n\n\n\n\n\n\nUsage\n\n\n1\n2\n3\n4\n5\n6\nimport\n \n{\n \nOrbitalFactory\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\nimport\n \n{\n \nMyCLI\n \n}\n \nfrom\n \n./cli\n;\n\n\n\nOrbitalFactory\n\n    \n.\nbootstrap\n(\nMyCLI\n)\n\n    \n.\nexecute\n(\nprocess\n.\nargv\n)", 
             "title": "OrbitalFactory"
@@ -413,6 +463,26 @@
         {
             "location": "/api/core/subcommand-group/#usage", 
             "text": "1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n10\n11\n12\n13 import   {   SubcommandGroup   }   from   @orbital/core ;  import   {   MyCommand   }   from   ./commands/my.command ;  import   {   FooSubcommand   }   from   ./foo/foo.subcommand.ts ;  @SubcommandGroup ({ \n     name :   remote , \n     description :   Manipulate data on remote git repositories. , \n     aliases :   [ r ], \n     declarations :   [ \n         MyCommand , \n         MySubcommand \n     ]  })", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/api/core/tokens/", 
+            "text": "Tokens\n\n\nType: \nstring\n\n\nRepresent tokens that the Orbital runtime replaces in configuration keys.\n\n\nAvailable Tokens\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nPRETTY_NAME\n\n\nThe formatted name of your CLI.\n\n\n\n\n\n\nNAME\n\n\nThe command-line usage name of your CLI.\n\n\n\n\n\n\nVERSION\n\n\nThe current distributed version of your CLI.\n\n\n\n\n\n\n\n\nUsage\n\n\n1\n2\n3\n4\n5\nimport\n \n{\n \nOrbitalConfiguration\n,\n \nPRETTY_NAME\n \n}\n \nfrom\n \n@orbital/core\n;\n\n\n\nexport\n \nconst\n \nconfig\n: \nOrbitalConfiguration\n \n=\n \n{\n\n    \nloggerPretix\n:\n \nLogger: \n \n+\n \nPRETTY_NAME\n\n\n}", 
+            "title": "Tokens"
+        }, 
+        {
+            "location": "/api/core/tokens/#tokens", 
+            "text": "Type:  string  Represent tokens that the Orbital runtime replaces in configuration keys.", 
+            "title": "Tokens"
+        }, 
+        {
+            "location": "/api/core/tokens/#available-tokens", 
+            "text": "Name  Description      PRETTY_NAME  The formatted name of your CLI.    NAME  The command-line usage name of your CLI.    VERSION  The current distributed version of your CLI.", 
+            "title": "Available Tokens"
+        }, 
+        {
+            "location": "/api/core/tokens/#usage", 
+            "text": "1\n2\n3\n4\n5 import   {   OrbitalConfiguration ,   PRETTY_NAME   }   from   @orbital/core ;  export   const   config :  OrbitalConfiguration   =   { \n     loggerPretix :   Logger:    +   PRETTY_NAME  }", 
             "title": "Usage"
         }
     ]

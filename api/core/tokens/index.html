@@ -13,7 +13,7 @@
         <meta name="description" content="Official Documentation for the Orbital CLI Framework">
       
       
-        <link rel="canonical" href="https://docs.orbital.sh/api/core/executable/">
+        <link rel="canonical" href="https://docs.orbital.sh/api/core/tokens/">
       
       
         <meta name="author" content="Orbital Team">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Executable - Orbital Docs</title>
+        <title>Tokens - Orbital Docs</title>
       
     
     
@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
-      <a href="#executable" tabindex="1" class="md-skip">
+      <a href="#tokens" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -126,7 +126,7 @@
                 Orbital Docs
               </span>
               <span class="md-header-nav__topic">
-                Executable
+                Tokens
               </span>
             
           
@@ -493,54 +493,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        Executable
-      </label>
-    
-    <a href="./" title="Executable" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../executable/" title="Executable" class="md-nav__link">
       Executable
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#properties" title="Properties" class="md-nav__link">
-    Properties
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#usage" title="Usage" class="md-nav__link">
-    Usage
-  </a>
-  
-</li>
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -620,11 +577,54 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../tokens/" title="Tokens" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Tokens
+      </label>
+    
+    <a href="./" title="Tokens" class="md-nav__link md-nav__link--active">
       Tokens
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#available-tokens" title="Available Tokens" class="md-nav__link">
+    Available Tokens
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -659,8 +659,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#properties" title="Properties" class="md-nav__link">
-    Properties
+  <a href="#available-tokens" title="Available Tokens" class="md-nav__link">
+    Available Tokens
   </a>
   
 </li>
@@ -686,50 +686,44 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/orbital-js/docs/edit/master/docs/api/core/executable.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/orbital-js/docs/edit/master/docs/api/core/tokens.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="executable">Executable</h1>
-<p>Type: <strong>Class</strong></p>
-<p>The <code class="codehilite">Executable</code> class is an abstract class designed to be extended by command classes. Currently, it typechecks, ensuring that commands have an <code class="codehilite">execute()</code> function, but it may have more properties in the future.</p>
-<h2 id="properties">Properties</h2>
+                <h1 id="tokens">Tokens</h1>
+<p>Type: <strong>string</strong></p>
+<p>Represent tokens that the Orbital runtime replaces in configuration keys.</p>
+<h2 id="available-tokens">Available Tokens</h2>
 <table>
 <thead>
 <tr>
-<th>Property</th>
-<th>Type</th>
+<th>Name</th>
 <th>Description</th>
-<th>Example</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code class="codehilite">execute</code></td>
-<td><code class="codehilite">(...args: any[]) =&gt; void</code></td>
-<td>The main method for the command to run. This is an abstract property, so it must be defined in your code.</td>
-<td><code class="codehilite">execute() { console.log(&#39;foo&#39;) }</code></td>
+<td><code class="codehilite">PRETTY_NAME</code></td>
+<td>The formatted name of your CLI.</td>
+</tr>
+<tr>
+<td><code class="codehilite">NAME</code></td>
+<td>The command-line usage name of your CLI.</td>
+</tr>
+<tr>
+<td><code class="codehilite">VERSION</code></td>
+<td>The current distributed version of your CLI.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="usage">Usage</h2>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Command</span><span class="p">,</span> <span class="nx">Executable</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@orbital/core&#39;</span><span class="p">;</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">OrbitalConfiguration</span><span class="p">,</span> <span class="nx">PRETTY_NAME</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@orbital/core&#39;</span><span class="p">;</span>
 
-<span class="kd">@Command</span><span class="p">({</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span>
-<span class="p">})</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">FooCommand</span> <span class="kr">extends</span> <span class="nx">Executable</span> <span class="p">{</span>
-    <span class="nx">execute() {</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
-    <span class="p">}</span>
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">config</span>: <span class="kt">OrbitalConfiguration</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">loggerPretix</span><span class="o">:</span> <span class="s1">&#39;Logger: &#39;</span> <span class="o">+</span> <span class="nx">PRETTY_NAME</span>
 <span class="p">}</span>
 </pre></div>
 </td></tr></table>
@@ -751,7 +745,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../command/" title="Command" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../subcommand-group/" title="SubcommandGroup" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -760,25 +754,11 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Command
+                SubcommandGroup
               </span>
             </div>
           </a>
         
-        
-          <a href="../enable-prod-mode/" title="enableProdMode" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                enableProdMode
-              </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
         
       </nav>
     </div>
